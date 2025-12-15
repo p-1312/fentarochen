@@ -19,7 +19,7 @@ const FileBrowser: React.FC = () => {
       case 'image': return <ImageIcon className="text-white" size={24} />;
       case 'video': return <Video className="text-ocean-glow" size={24} />;
       case 'audio': return <Music className="text-white" size={24} />;
-      default: return <File className="text-zinc-400" size={24} />;
+      default: return <File className="text-slate-400" size={24} />;
     }
   };
 
@@ -72,12 +72,12 @@ const FileBrowser: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white p-6 md:p-12 pt-32 flex flex-col items-center relative">
+    <div className="min-h-screen bg-black text-white p-6 md:p-12 pt-24 flex flex-col items-center relative">
       <div className="max-w-6xl w-full">
         <div className="flex justify-between items-center mb-8">
             <div>
                 <h2 className="text-4xl font-bold mb-2 border-l-4 border-ocean-glow pl-4 text-white">Dateimanager</h2>
-                <p className="text-zinc-400 pl-5">Upload und Verwaltung von Medien.</p>
+                <p className="text-slate-400 pl-5">Upload und Verwaltung von Medien.</p>
             </div>
             <div>
                 <input 
@@ -99,28 +99,28 @@ const FileBrowser: React.FC = () => {
 
         {/* Upload Area */}
         <div 
-            className="border-2 border-dashed border-zinc-800 rounded-xl p-12 text-center mb-8 bg-zinc-900/30 hover:bg-zinc-900/50 hover:border-ocean-glow/50 transition-all cursor-pointer"
+            className="border-2 border-dashed border-slate-800 rounded-xl p-12 text-center mb-8 bg-slate-900/30 hover:bg-slate-900/50 hover:border-ocean-glow/50 transition-all cursor-pointer"
             onClick={() => fileInputRef.current?.click()}
         >
-            <Upload className="mx-auto text-zinc-500 mb-4" size={48} />
-            <h3 className="text-xl font-bold text-zinc-300">Dateien hier ablegen</h3>
-            <p className="text-zinc-500 text-sm mt-2">Unterstützt Videos, Musik, Bilder und Dokumente</p>
+            <Upload className="mx-auto text-slate-500 mb-4" size={48} />
+            <h3 className="text-xl font-bold text-slate-300">Dateien hier ablegen</h3>
+            <p className="text-slate-500 text-sm mt-2">Unterstützt Videos, Musik, Bilder und Dokumente</p>
         </div>
 
         {/* File List */}
-        <div className="bg-zinc-900/30 border border-zinc-800 rounded-xl overflow-hidden">
-            <div className="grid grid-cols-12 gap-4 p-4 border-b border-zinc-800 bg-black/50 text-xs font-mono text-zinc-500 uppercase tracking-wider">
+        <div className="bg-slate-900/80 border border-slate-800 rounded-xl overflow-hidden">
+            <div className="grid grid-cols-12 gap-4 p-4 border-b border-slate-800 bg-slate-950/50 text-xs font-mono text-slate-500 uppercase tracking-wider">
                 <div className="col-span-6">Name</div>
                 <div className="col-span-2">Typ</div>
                 <div className="col-span-2">Größe</div>
                 <div className="col-span-2 text-right">Aktion</div>
             </div>
             
-            <div className="divide-y divide-zinc-800">
+            <div className="divide-y divide-slate-800">
                 {files.map(file => (
-                    <div key={file.id} className="grid grid-cols-12 gap-4 p-4 items-center hover:bg-zinc-800/50 transition-colors group">
+                    <div key={file.id} className="grid grid-cols-12 gap-4 p-4 items-center hover:bg-slate-800/50 transition-colors group">
                         <div className="col-span-6 flex items-center gap-4 overflow-hidden cursor-pointer" onClick={() => openPreview(file)}>
-                            <div className="p-2 bg-black rounded border border-zinc-800 relative">
+                            <div className="p-2 bg-slate-950 rounded border border-slate-800 relative">
                                 {getIcon(file.type)}
                                 {(file.type === 'video' || file.type === 'image') && (
                                   <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity rounded">
@@ -129,28 +129,28 @@ const FileBrowser: React.FC = () => {
                                 )}
                             </div>
                             <div className="truncate">
-                                <div className="font-medium text-zinc-200 truncate group-hover:text-ocean-glow transition-colors">{file.name}</div>
-                                <div className="text-xs text-zinc-500">{file.date.toLocaleDateString()}</div>
+                                <div className="font-medium text-slate-200 truncate group-hover:text-ocean-glow transition-colors">{file.name}</div>
+                                <div className="text-xs text-slate-500">{file.date.toLocaleDateString()}</div>
                             </div>
                         </div>
-                        <div className="col-span-2 text-sm text-zinc-400 capitalize bg-black/30 px-2 py-1 rounded w-fit h-fit">
+                        <div className="col-span-2 text-sm text-slate-400 capitalize bg-slate-950/30 px-2 py-1 rounded w-fit h-fit">
                             {file.type}
                         </div>
-                        <div className="col-span-2 font-mono text-sm text-zinc-400">
+                        <div className="col-span-2 font-mono text-sm text-slate-400">
                             {formatSize(file.size)}
                         </div>
                         <div className="col-span-2 flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                             {(file.type === 'image' || file.type === 'video') && (
                               <button 
                                 onClick={() => openPreview(file)}
-                                className="p-2 hover:bg-zinc-700 rounded text-white"
+                                className="p-2 hover:bg-slate-700 rounded text-white"
                                 title="Vorschau"
                               >
                                 <Eye size={18} />
                               </button>
                             )}
                             {file.url !== '#' && !file.url.startsWith('blob:') && (
-                                <a href={file.url} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-zinc-700 rounded text-ocean-glow" title="Download">
+                                <a href={file.url} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-slate-700 rounded text-ocean-glow" title="Download">
                                     <Download size={18} />
                                 </a>
                             )}
@@ -166,7 +166,7 @@ const FileBrowser: React.FC = () => {
                 ))}
                 
                 {files.length === 0 && (
-                    <div className="p-12 text-center text-zinc-500 italic">
+                    <div className="p-12 text-center text-slate-500 italic">
                         Keine Dateien vorhanden.
                     </div>
                 )}
@@ -183,15 +183,15 @@ const FileBrowser: React.FC = () => {
       {/* Preview Modal */}
       {selectedFile && (
         <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
-          <div className="w-full max-w-5xl bg-zinc-900 border border-zinc-700 rounded-xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
-            <div className="p-4 border-b border-zinc-800 flex justify-between items-center bg-black">
+          <div className="w-full max-w-5xl bg-slate-900 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+            <div className="p-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
                <div className="flex items-center gap-3">
                   {getIcon(selectedFile.type)}
                   <h3 className="font-bold text-white truncate max-w-md">{selectedFile.name}</h3>
                </div>
                <button 
                  onClick={() => setSelectedFile(null)}
-                 className="p-2 hover:bg-zinc-800 rounded-full text-zinc-400 hover:text-white transition-colors"
+                 className="p-2 hover:bg-slate-800 rounded-full text-slate-400 hover:text-white transition-colors"
                >
                  <X size={24} />
                </button>
@@ -218,7 +218,7 @@ const FileBrowser: React.FC = () => {
                )}
             </div>
 
-            <div className="p-4 bg-black border-t border-zinc-800 flex justify-between items-center text-xs font-mono text-zinc-500">
+            <div className="p-4 bg-slate-950 border-t border-slate-800 flex justify-between items-center text-xs font-mono text-slate-500">
                <div>TYPE: {selectedFile.type.toUpperCase()}</div>
                <div>SIZE: {formatSize(selectedFile.size)}</div>
             </div>

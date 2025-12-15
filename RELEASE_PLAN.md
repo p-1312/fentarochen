@@ -1,82 +1,112 @@
-# FentaRochen – Deployment & Infrastruktur Guide
+# FentaRochen – Pre-Release Plan & Dokumentation
 
-## 1. Projekt-Übersicht
+## 1. Projekt-Steckbrief
 
 | Kategorie | Details |
 | :--- | :--- |
 | **Projektname** | FentaRochen |
-| **Live URL** | **https://fentarochen.net** |
+| **Plattform(en)** | Web (Desktop & Mobile Browser), PWA-fähig |
+| **Technologie** | React 19, TypeScript, Vite, Tailwind CSS, Google Gemini API (GenAI SDK) |
+| **Ziel-Environment** | Web Hosting (z.B. Vercel, Netlify, AWS Amplify) |
+| **Domain** | **fentarochen.net** |
 | **Cloud Server** | **https://cloud.fentarochen.net** |
-| **Status** | v0.7.3 Beta (Lokaler Test erfolgreich) |
+| **Status** | v0.7.3 Beta (Feature Complete + Legal + Domain Config) |
+| **CI/CD** | Empfohlen: GitHub Actions (Auto-Deploy bei Push auf Main) |
+| **Tests** | Manuelle Tests (derzeit), Empfohlen: Vitest für Unit-Tests |
+| **i18n** | Deutsch (Hardcoded DE-DE) |
+| **Datenschutz** | Implementiert (Komponente `Legal.tsx` vorhanden) |
+| **Security** | API-Key Schutz (Backend-Proxy empfohlen für Prod), HTTPS |
+| **Integrationen** | Google Gemini (Text & Vision), Recharts (Visualisierung) |
+| **Geplantes Release** | *Datum hier eintragen* |
 
 ---
 
-## 2. Schritt-für-Schritt: Website Online bringen
+## 2. Detaillierte Aufgaben-Checkliste (Nach Priorität)
 
-Damit deine React-App unter `fentarochen.net` erreichbar ist, musst du sie "deployen". Wir nutzen hierfür **Vercel**, da es der Industriestandard für diese Art von Apps ist.
+Diese Liste führt dich von der aktuellen Beta zur Version 1.0.
 
-### Phase A: Code Hosting (GitHub)
-1.  Erstelle einen Account auf [GitHub.com](https://github.com).
-2.  Erstelle ein neues "Repository" (öffentlich oder privat).
-3.  Lade deine Projektdateien hoch (alles AUSSER `node_modules` und `.env`).
-    *   *Tipp:* Wenn du Git installiert hast, nutze im Terminal:
-        ```bash
-        git init
-        git add .
-        git commit -m "Initial Release"
-        git branch -M main
-        git remote add origin <DEINE_GITHUB_URL>
-        git push -u origin main
-        ```
+### Prio A: Domain Konfiguration (fentarochen.net)
 
-### Phase B: Web Hosting (Vercel)
-1.  Gehe auf [Vercel.com](https://vercel.com) und logge dich mit GitHub ein.
-2.  Klicke "Add New Project" und importiere dein FentaRochen-Repository.
-3.  **WICHTIG - Environment Variables:**
-    *   Suche das Feld "Environment Variables".
-    *   Füge hinzu: Name `API_KEY`, Wert `Dein_Google_Gemini_Key`.
-4.  Klicke auf "Deploy".
+#### A1. DNS Setup (Domain verbinden)
+*   **Zweck:** Die Website unter `fentarochen.net` erreichbar machen.
+*   **To-Do:** Melde dich bei deinem Domain-Registrar (z.B. Ionos, GoDaddy, Namecheap) an.
+*   **A-Record:** Setze einen A-Record auf die IP-Adresse deines Hostings (z.B. Vercel IP: `76.76.21.21`).
+*   **CNAME:** Für Subdomains (wie `www.fentarochen.net`) setze einen CNAME auf den Hosting-Alias (z.B. `cname.vercel-dns.com`).
+*   **Cloud Subdomain:** Für `cloud.fentarochen.net`, stelle sicher, dass dieser auf deinen Nextcloud-Server zeigt (nicht auf diese Web-App, sofern sie getrennt laufen).
 
-### Phase C: Domain verbinden (DNS)
-1.  Gehe im Vercel Dashboard zu deinem Projekt -> **Settings** -> **Domains**.
-2.  Gib `fentarochen.net` ein und klicke Add.
-3.  Vercel zeigt dir nun DNS-Daten an (meist ein **A-Record** mit IP `76.76.21.21`).
-4.  Logge dich bei deinem Domain-Anbieter ein (IONOS, Strato, GoDaddy etc.).
-5.  Gehe zur DNS-Verwaltung deiner Domain.
-6.  Ändere den **A-Record (@)** auf die IP-Adresse, die Vercel dir angezeigt hat.
-7.  Warte bis zu 24 Stunden (meist geht es in 1 Stunde), bis die Änderung weltweit aktiv ist.
+#### A2. Produktions-Build optimieren
+*   **Zweck:** Sicherstellen, dass die App minifiziert ist und keine Debug-Informationen leakt.
+*   **Befehle:** `npm run build`
+*   **Akzeptanz:** `npm run preview` startet die App fehlerfrei.
+
+### Prio B: Sicherheit & Rechtliches
+
+#### B1. Environment Variables absichern
+*   **To-Do:** `.env` Datei prüfen (darf nicht ins Git!), Hosting-Provider Secrets konfigurieren.
+
+#### B2. Impressum & Datenschutz (Privacy Policy)
+*   **Status:** ✅ Erledigt (`components/Legal.tsx`).
+
+### Prio C: Deployment
+
+#### C1. Hosting Setup
+*   **Zweck:** Die Welt Zugriff gewähren.
+*   **To-Do:** Account bei Vercel/Netlify erstellen, Repo verknüpfen.
+*   **WICHTIG:** Trage in den Hosting-Einstellungen unter "Domains" deine Domain `fentarochen.net` ein.
 
 ---
 
-## 3. Schritt-für-Schritt: Nextcloud Server einrichten
+## 3. Mini-Tutorials für die wichtigsten Aufgaben
 
-Damit die Adresse `https://cloud.fentarochen.net` wirklich funktioniert, benötigst du einen separaten Server. Diese React-App ist nur die "Fassade", die Nextcloud ist der "Lagerraum".
+### Tutorial 1: Der Release-Build (Vite)
 
-### Phase A: Server beschaffen
-*   Du benötigst einen **Managed Nextcloud** Anbieter oder einen **VPS (Virtual Private Server)**.
-*   *Empfehlung:* Hetzner Storage Share oder IONOS Managed Nextcloud.
+Um die App für die Produktion vorzubereiten, darfst du nicht den Dev-Server nutzen.
 
-### Phase B: Subdomain einrichten
-1.  Gehe wieder zu deinem Domain-Anbieter (DNS-Verwaltung).
-2.  Erstelle eine neue **Subdomain** namens `cloud` (also `cloud.fentarochen.net`).
-3.  Setze den A-Record dieser Subdomain auf die **IP-Adresse deines Nextcloud-Servers** (diese IP bekommst du von deinem Hosting-Anbieter aus Phase A).
+**Schritt 1: Build starten**
+```bash
+# Im Terminal:
+npm run build
+```
+*Dies erstellt einen `dist` Ordner mit optimiertem Code.*
 
-### Phase C: Verbindung prüfen
-1.  Öffne `https://cloud.fentarochen.net` im Browser. Du solltest jetzt den echten Nextcloud-Login sehen.
-2.  Gehe in deine FentaRochen Web-App (lokal oder online).
-3.  Gehe auf **Profil**.
-4.  Gib `https://cloud.fentarochen.net` ein und klicke "Verbinden".
-5.  Die App bestätigt nun, dass die Adresse gültig ist (Simulation).
+### Tutorial 2: Deployment auf Vercel (Beispiel)
+
+Vercel ist ideal für React/Vite Apps.
+
+1.  **Repo pushen:** Stelle sicher, dass dein Code auf GitHub/GitLab liegt.
+2.  **Vercel Dashboard:** Gehe auf [vercel.com/new](https://vercel.com/new).
+3.  **Import:** Wähle dein `FentaRochen` Repository.
+4.  **Framework Preset:** Vercel erkennt meist automatisch "Vite". Falls nicht, wähle es aus.
+5.  **Environment Variables (WICHTIG):**
+    *   Klicke auf "Environment Variables".
+    *   Name: `API_KEY` (oder wie du ihn im Code nennst, oft `VITE_API_KEY` bei Vite).
+    *   Value: `Dein_Google_Gemini_Key_Hier`.
+6.  **Deploy:** Klicke auf "Deploy".
+7.  **Domain:** Gehe in Vercel zu Settings > Domains und füge `fentarochen.net` hinzu.
 
 ---
 
-## 4. Wichtiger Hinweis zur "Echten" Datensynchronisation
+## 4. Finale Release-Checklist (Copy-Paste)
 
-Aktuell ist die Anzeige in der FentaRochen-App (`StorageDashboard.tsx` und `FileManager.tsx`) eine **Simulation** bzw. ein UI-Mockup. 
+Kopiere diese Liste in dein Ticket-System oder nutze sie hier:
 
-Um **echte** Dateien aus deiner Nextcloud in dieser Website anzuzeigen, wäre Entwicklungsarbeit nötig:
-1.  **CORS:** Dein Nextcloud-Server muss so konfiguriert werden, dass er Anfragen von `fentarochen.net` erlaubt.
-2.  **WebDAV:** Die App müsste umprogrammiert werden, um das WebDAV-Protokoll zu nutzen.
-3.  **Auth:** Der Nutzer müsste sein Nextcloud-Passwort in der App eingeben.
+- [ ] **Code Freeze:** Keine neuen Features mehr hinzufügen.
+- [ ] **Linting:** `npm run lint` (falls konfiguriert) läuft ohne Fehler.
+- [ ] **Build:** `npm run build` erfolgreich.
+- [ ] **API Key:** Key ist in der Produktionsumgebung hinterlegt (NICHT im Code).
+- [ ] **Domain:** DNS Records für `fentarochen.net` sind propagiert.
+- [ ] **Cloud:** Verbindung zu `https://cloud.fentarochen.net` geprüft.
+- [x] **Legal:** Datenschutzhinweis ist sichtbar.
+- [ ] **Final Deployment:** Push auf `main` Branch durchgeführt.
 
-*Für Version 1.0 bleibt die App ein Dashboard, das den Status anzeigt und auf die Nextcloud verlinkt, ohne die Dateien direkt zu streamen.*
+---
+
+## 5. Minimale Test-Prozedur (Smoke Test)
+
+Führe diese Schritte nach dem Deployment auf der **echten URL** durch:
+
+1.  **Start:** Seite laden unter `fentarochen.net`.
+2.  **Navigation:** Klicke auf "Daten" (Specs).
+    *   *Erwartet:* Header zeigt "Verbunden mit: https://cloud.fentarochen.net".
+3.  **Legal Check:** Klicke im Footer auf "Impressum & Datenschutz".
+4.  **Chat (Comms):** Teste eine Nachricht.
