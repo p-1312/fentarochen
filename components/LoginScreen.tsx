@@ -51,7 +51,8 @@ const LoginScreen: React.FC<LoginProps> = ({ onLogin }) => {
   return (
     <div className="fixed inset-0 w-full h-full bg-black flex flex-col items-center justify-center overflow-hidden">
 
-      <div className={`relative z-50 flex flex-col items-center transition-all duration-500 ${showRecovery ? 'opacity-0 scale-90 pointer-events-none' : 'opacity-100 scale-100'}`}>
+      {/* Container is scaled down significantly (scale-50) to create "distance" effect */}
+      <div className={`relative z-50 flex flex-col items-center transition-all duration-500 transform scale-50 md:scale-50 ${showRecovery ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
         <form onSubmit={handleSubmit} className="w-64">
             <input
             type="password"
@@ -83,7 +84,7 @@ const LoginScreen: React.FC<LoginProps> = ({ onLogin }) => {
                         <X size={16} />
                     </button>
                 </div>
-                <div className="p-6 h-64 overflow-y-auto bg-black text-green-500 font-mono text-xs leading-relaxed">
+                <div className="p-6 h-64 overflow-y-auto bg-black text-white font-mono text-xs leading-relaxed">
                     <p className="mb-2 text-slate-500">Initializing biometric bypass protocol...</p>
                     {recoveryStep >= 1 && (
                         <>
@@ -91,20 +92,20 @@ const LoginScreen: React.FC<LoginProps> = ({ onLogin }) => {
                             <p>> Bypassing Firewall Layer 1... <span className="text-white">OK</span></p>
                             <p>> Decrypting User Hash...</p>
                             <div className="my-4 w-full bg-slate-900 h-1 overflow-hidden">
-                                <div className="h-full bg-green-500 animate-[scan_2s_ease-in-out_infinite] w-1/2"></div>
+                                <div className="h-full bg-red-600 animate-[scan_2s_ease-in-out_infinite] w-1/2"></div>
                             </div>
                         </>
                     )}
                     {recoveryStep >= 2 && (
-                        <div className="mt-4 border-t border-green-500/30 pt-4 animate-in fade-in slide-in-from-bottom-2">
-                            <p className="text-red-500 font-bold mb-2">WARNING: SECURITY BREACH DETECTED</p>
+                        <div className="mt-4 border-t border-red-600/30 pt-4 animate-in fade-in slide-in-from-bottom-2">
+                            <p className="text-red-600 font-bold mb-2">WARNING: SECURITY BREACH DETECTED</p>
                             <p className="text-white mb-2">PASSWORT RESET:</p>
                             <div className="bg-white/10 p-3 rounded text-center text-xl tracking-widest text-white font-bold border border-white/20">
                                 admin
                             </div>
                             <button
                                 onClick={closeRecovery}
-                                className="w-full mt-6 bg-green-600 hover:bg-green-500 text-black font-bold py-2 rounded flex items-center justify-center gap-2 transition-colors"
+                                className="w-full mt-6 bg-white hover:bg-slate-200 text-black font-bold py-2 rounded flex items-center justify-center gap-2 transition-colors"
                             >
                                 <CheckCircle2 size={16} />
                                 LOGIN VERWENDEN

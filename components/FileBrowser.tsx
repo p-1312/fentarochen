@@ -16,9 +16,9 @@ const FileBrowser: React.FC = () => {
 
   const getIcon = (type: string) => {
     switch (type) {
-      case 'image': return <ImageIcon className="text-purple-400" size={24} />;
-      case 'video': return <Video className="text-red-400" size={24} />;
-      case 'audio': return <Music className="text-ocean-glow" size={24} />;
+      case 'image': return <ImageIcon className="text-white" size={24} />;
+      case 'video': return <Video className="text-ocean-glow" size={24} />;
+      case 'audio': return <Music className="text-white" size={24} />;
       default: return <File className="text-slate-400" size={24} />;
     }
   };
@@ -76,7 +76,7 @@ const FileBrowser: React.FC = () => {
       <div className="max-w-6xl w-full">
         <div className="flex justify-between items-center mb-8">
             <div>
-                <h2 className="text-4xl font-bold mb-2 border-l-4 border-bio-green pl-4">Dateimanager</h2>
+                <h2 className="text-4xl font-bold mb-2 border-l-4 border-ocean-glow pl-4 text-white">Dateimanager</h2>
                 <p className="text-slate-400 pl-5">Upload und Verwaltung von Medien.</p>
             </div>
             <div>
@@ -89,7 +89,7 @@ const FileBrowser: React.FC = () => {
                 />
                 <button 
                     onClick={() => fileInputRef.current?.click()}
-                    className="bg-ocean-glow hover:bg-cyan-300 text-slate-950 font-bold py-3 px-6 rounded-lg flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(6,182,212,0.3)]"
+                    className="bg-ocean-glow hover:bg-red-800 text-white font-bold py-3 px-6 rounded-lg flex items-center gap-2 transition-all shadow-[0_0_15px_rgba(139,0,0,0.3)]"
                 >
                     <Upload size={20} />
                     <span>Upload</span>
@@ -143,7 +143,7 @@ const FileBrowser: React.FC = () => {
                             {(file.type === 'image' || file.type === 'video') && (
                               <button
                                 onClick={() => openPreview(file)}
-                                className="p-2 hover:bg-slate-700 rounded text-blue-400"
+                                className="p-2 hover:bg-slate-700 rounded text-white"
                                 title="Vorschau"
                               >
                                 <Eye size={18} />
@@ -156,7 +156,7 @@ const FileBrowser: React.FC = () => {
                             )}
                             <button 
                                 onClick={() => handleDelete(file.id)}
-                                className="p-2 hover:bg-red-900/30 rounded text-red-400"
+                                className="p-2 hover:bg-red-900/30 rounded text-red-500"
                                 title="Löschen"
                             >
                                 <Trash2 size={18} />
@@ -172,7 +172,7 @@ const FileBrowser: React.FC = () => {
                 )}
             </div>
             {files.length > 3 && (
-                <div className="p-2 bg-yellow-900/20 text-yellow-500 text-xs text-center border-t border-yellow-900/30 flex items-center justify-center gap-2">
+                <div className="p-2 bg-red-900/20 text-red-400 text-xs text-center border-t border-red-900/30 flex items-center justify-center gap-2">
                     <AlertTriangle size={12} />
                     Hinweis: Große Dateien (Videos) werden temporär für diese Sitzung gespeichert.
                 </div>
@@ -200,11 +200,15 @@ const FileBrowser: React.FC = () => {
             <div className="flex-1 bg-black flex items-center justify-center p-2 overflow-hidden relative group">
                {selectedFile.type === 'video' ? (
                  <video
-                   src={selectedFile.url}
+                   key={selectedFile.url} // CRITICAL FIX: Forces React to re-mount the video player when file changes
                    controls
                    autoPlay
+                   playsInline
                    className="max-w-full max-h-[70vh] rounded outline-none"
-                 />
+                 >
+                    <source src={selectedFile.url} />
+                    Dein Browser unterstützt dieses Video nicht.
+                 </video>
                ) : (
                  <img
                    src={selectedFile.url}
