@@ -1,33 +1,33 @@
 import React, { useState } from 'react';
-import Hero from './components/Hero';
+import HeroSection from './components/HeroSection';
 import Dashboard from './components/Dashboard';
-import FileManager from './components/FileManager';
-import Profile from './components/Profile';
-import Legal from './components/Legal';
-import Login from './components/Login';
+import FileBrowser from './components/FileBrowser';
+import UserAccount from './components/UserAccount';
+import LegalInfo from './components/LegalInfo';
+import LoginScreen from './components/LoginScreen';
 import { ViewSection } from './types';
 import { Activity, HardDrive, User, Menu, X, Home } from 'lucide-react';
 
 // Custom Icon representing the Fentanyl Patch (Matrixpflaster)
 const FentanylPatchIcon = ({ size = 24, className = "" }: { size?: number | string, className?: string }) => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width={size}
-    height={size}
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="1.5"
-    strokeLinecap="round"
-    strokeLinejoin="round"
+  <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width={size} 
+    height={size} 
+    viewBox="0 0 24 24" 
+    fill="none" 
+    stroke="currentColor" 
+    strokeWidth="1.5" 
+    strokeLinecap="round" 
+    strokeLinejoin="round" 
     className={className}
   >
     {/* Outline of the patch with slight fill for material feel */}
     <rect x="2" y="5" width="20" height="14" rx="2" fill="currentColor" fillOpacity="0.05" />
-
+    
     {/* The characteristic wavy cut of the protective liner (S-Curve) */}
     <path d="M12 5c0 3.5-1.5 3.5-1.5 7s1.5 3.5 1.5 7" />
-
+    
     {/* Stylized markings representing the text on the patch */}
     <path d="M5 9h3" opacity="0.5" />
     <path d="M5 11h2" opacity="0.3" />
@@ -49,22 +49,22 @@ const App: React.FC = () => {
   const renderView = () => {
     switch (currentView) {
       case ViewSection.HOME:
-        return <Hero onExplore={() => handleNavClick(ViewSection.DASHBOARD)} />;
+        return <HeroSection onExplore={() => handleNavClick(ViewSection.DASHBOARD)} />;
       case ViewSection.DASHBOARD:
         return <Dashboard />;
       case ViewSection.FILES:
-        return <FileManager />;
+        return <FileBrowser />;
       case ViewSection.PROFILE:
-        return <Profile />;
+        return <UserAccount />;
       case ViewSection.LEGAL:
-        return <Legal />;
+        return <LegalInfo />;
       default:
-        return <Hero onExplore={() => handleNavClick(ViewSection.DASHBOARD)} />;
+        return <HeroSection onExplore={() => handleNavClick(ViewSection.DASHBOARD)} />;
     }
   };
 
   if (!isLoggedIn) {
-    return <Login onLogin={() => setIsLoggedIn(true)} />;
+    return <LoginScreen onLogin={() => setIsLoggedIn(true)} />;
   }
 
   return (
@@ -73,8 +73,8 @@ const App: React.FC = () => {
       <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
-            <div
-              className="flex items-center gap-2 cursor-pointer group"
+            <div 
+              className="flex items-center gap-2 cursor-pointer group" 
               onClick={() => handleNavClick(ViewSection.HOME)}
             >
               <div className="text-ocean-glow transition-all duration-300 group-hover:drop-shadow-[0_0_10px_rgba(6,182,212,0.8)] group-hover:scale-110">
@@ -85,7 +85,7 @@ const App: React.FC = () => {
                 <span className="text-[10px] ml-2 text-slate-500 font-normal border border-slate-700 rounded px-1">CLOUD</span>
               </span>
             </div>
-
+            
             {/* Desktop Menu */}
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-4">
@@ -118,7 +118,7 @@ const App: React.FC = () => {
 
             {/* Mobile Menu Button */}
             <div className="md:hidden flex items-center">
-               <button
+               <button 
                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                  className="text-slate-400 hover:text-white p-2"
                >
@@ -177,8 +177,8 @@ const App: React.FC = () => {
       {/* Footer */}
       {currentView !== ViewSection.HOME && (
         <footer className="bg-black py-8 border-t border-slate-900 text-center text-slate-600 text-sm">
-          <p className="mb-2">© 2024 FentaRochen Cloud Systems (v0.7.5). Secure Personal Data Environment.</p>
-          <button
+          <p className="mb-2">© 2024 FentaRochen Cloud Systems (v0.7.6). Secure Personal Data Environment.</p>
+          <button 
             onClick={() => handleNavClick(ViewSection.LEGAL)}
             className="text-slate-700 hover:text-ocean-glow transition-colors underline decoration-dotted"
           >
