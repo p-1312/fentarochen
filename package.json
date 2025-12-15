@@ -1,7 +1,7 @@
 {
   "name": "fentarochen",
   "private": true,
-  "version": "0.7.8",
+  "version": "0.7.9",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -16,6 +16,7 @@
     "recharts": "^2.12.2"
   },
   "devDependencies": {
+    "@types/node": "^20.11.24",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
     "@vitejs/plugin-react": "^4.2.1",
