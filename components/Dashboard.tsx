@@ -19,7 +19,7 @@ const trafficData = [
   { time: 'So', upload: 349, download: 430 },
 ];
 
-const StorageDashboard: React.FC = () => {
+const Dashboard: React.FC = () => {
   const totalStorage = 2000; // 2TB
   const usedStorage = storageData.reduce((acc, curr) => acc + curr.value, 0);
   const percentage = Math.round((usedStorage / totalStorage) * 100);
@@ -30,7 +30,7 @@ const StorageDashboard: React.FC = () => {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
             <h2 className="text-4xl font-bold text-white mb-2 border-l-4 border-ocean-glow pl-4 flex items-center gap-3">
-              Cloud Interface <span className="text-sm font-mono font-normal text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">v0.7.4</span>
+              Cloud Interface <span className="text-sm font-mono font-normal text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">v0.7.5</span>
             </h2>
             <div className="pl-5 flex items-center gap-2 text-ocean-glow font-mono text-sm">
                 <Globe size={14} />
@@ -147,4 +147,4 @@ const StorageDashboard: React.FC = () => {
   );
 };
 
-export default StorageDashboard;
+export default Dashboard;

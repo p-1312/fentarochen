@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Hero from "./components/Hero.tsx";
-import StorageDashboard from "./components/StorageDashboard.tsx";
+import Hero from './components/Hero';
+import Dashboard from './components/Dashboard';
 import FileManager from './components/FileManager';
-import Profile from "./components/Profile.tsx";
-import Legal from "./components/Legal.tsx";
-import Login from "./components/Login.tsx";
+import Profile from './components/Profile';
+import Legal from './components/Legal';
+import Login from './components/Login';
 import { ViewSection } from './types';
 import { Activity, HardDrive, User, Menu, X, Home } from 'lucide-react';
 
@@ -51,7 +51,7 @@ const App: React.FC = () => {
       case ViewSection.HOME:
         return <Hero onExplore={() => handleNavClick(ViewSection.DASHBOARD)} />;
       case ViewSection.DASHBOARD:
-        return <StorageDashboard />;
+        return <Dashboard />;
       case ViewSection.FILES:
         return <FileManager />;
       case ViewSection.PROFILE:
@@ -177,7 +177,7 @@ const App: React.FC = () => {
       {/* Footer */}
       {currentView !== ViewSection.HOME && (
         <footer className="bg-black py-8 border-t border-slate-900 text-center text-slate-600 text-sm">
-          <p className="mb-2">© 2024 FentaRochen Cloud Systems (v0.7.4). Secure Personal Data Environment.</p>
+          <p className="mb-2">© 2024 FentaRochen Cloud Systems (v0.7.5). Secure Personal Data Environment.</p>
           <button
             onClick={() => handleNavClick(ViewSection.LEGAL)}
             className="text-slate-700 hover:text-ocean-glow transition-colors underline decoration-dotted"
