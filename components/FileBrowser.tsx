@@ -1,16 +1,18 @@
-import React, { useState, useRef } from 'react';
-import { Upload, File, Image as ImageIcon, Music, Video, Trash2, Download, Eye, X, PlayCircle } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Upload, File, Image as ImageIcon, Music, Video, Trash2, Download, Eye, X, PlayCircle, AlertTriangle } from 'lucide-react';
 import { FileItem } from '../types';
+import { getStoredFiles, addStoredFile, removeStoredFile } from '../services/storageService';
 
 const FileBrowser: React.FC = () => {
-  const [files, setFiles] = useState<FileItem[]>([
-    { id: '1', name: 'Projekt_Titan.pdf', type: 'document', size: 2400000, url: '#', date: new Date('2024-03-10') },
-    // Using a sample video for demonstration purposes since the original # link won't play
-    { id: '2', name: 'Deep_Dive_Log.mp4', type: 'video', size: 154000000, url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4', date: new Date('2024-03-12') },
-    { id: '3', name: 'Sonar_Scan_Alpha.png', type: 'image', size: 4500000, url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop', date: new Date('2024-03-14') },
-  ]);
+  // Initialize from Service instead of hardcoded state
+  const [files, setFiles] = useState<FileItem[]>([]);
   const [selectedFile, setSelectedFile] = useState<FileItem | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Load files on mount
+  useEffect(() => {
+    setFiles(getStoredFiles());
+  }, []);
 
   const getIcon = (type: string) => {
     switch (type) {
@@ -25,23 +27,34 @@ const FileBrowser: React.FC = () => {
     const uploadedFiles = event.target.files;
     if (!uploadedFiles) return;
 
-    const newFiles: FileItem[] = Array.from(uploadedFiles).map(file => {
+    Array.from(uploadedFiles).forEach(file => {
         let type: FileItem['type'] = 'document';
         if (file.type.startsWith('image')) type = 'image';
         else if (file.type.startsWith('video')) type = 'video';
         else if (file.type.startsWith('audio')) type = 'audio';
 
-        return {
+        const newFile: FileItem = {
             id: Math.random().toString(36).substr(2, 9),
             name: file.name,
             type,
             size: file.size,
-            url: URL.createObjectURL(file), // Create local preview URL
+            // Creating a Blob URL that persists for the browser session
+            url: URL.createObjectURL(file),
             date: new Date()
         };
+
+        // Save to Service
+        addStoredFile(newFile);
     });
 
-    setFiles(prev => [...newFiles, ...prev]);
+    // Update local state from service
+    setFiles(getStoredFiles());
+  };
+
+  const handleDelete = (id: string) => {
+    removeStoredFile(id);
+    setFiles(getStoredFiles());
+    if (selectedFile?.id === id) setSelectedFile(null);
   };
 
   const formatSize = (bytes: number) => {
@@ -84,7 +97,7 @@ const FileBrowser: React.FC = () => {
             </div>
         </div>
 
-        {/* Upload Area / Dropzone Visual */}
+        {/* Upload Area */}
         <div 
             className="border-2 border-dashed border-slate-800 rounded-xl p-12 text-center mb-8 bg-slate-900/30 hover:bg-slate-900/50 hover:border-ocean-glow/50 transition-all cursor-pointer"
             onClick={() => fileInputRef.current?.click()}
@@ -136,13 +149,13 @@ const FileBrowser: React.FC = () => {
                                 <Eye size={18} />
                               </button>
                             )}
-                            {file.url !== '#' && (
+                            {file.url !== '#' && !file.url.startsWith('blob:') && (
                                 <a href={file.url} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-slate-700 rounded text-ocean-glow" title="Download">
                                     <Download size={18} />
                                 </a>
                             )}
                             <button 
-                                onClick={() => setFiles(files.filter(f => f.id !== file.id))}
+                                onClick={() => handleDelete(file.id)}
                                 className="p-2 hover:bg-red-900/30 rounded text-red-400"
                                 title="Löschen"
                             >
@@ -158,6 +171,12 @@ const FileBrowser: React.FC = () => {
                     </div>
                 )}
             </div>
+            {files.length > 3 && (
+                <div className="p-2 bg-yellow-900/20 text-yellow-500 text-xs text-center border-t border-yellow-900/30 flex items-center justify-center gap-2">
+                    <AlertTriangle size={12} />
+                    Hinweis: Große Dateien (Videos) werden temporär für diese Sitzung gespeichert.
+                </div>
+            )}
         </div>
       </div>
 

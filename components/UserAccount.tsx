@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { User, Mail, Server, Shield, LogOut, Camera, Save, Key, Check, Cloud, AlertTriangle, RefreshCw, CheckCircle2 } from 'lucide-react';
 import { UserProfile } from '../types';
+import { updatePassword, verifyPassword } from '../services/storageService';
 
 const UserAccount: React.FC = () => {
   const [profile, setProfile] = useState<UserProfile>({
@@ -23,7 +24,6 @@ const UserAccount: React.FC = () => {
 
   const handleSave = () => {
     setIsEditing(false);
-    // Logic to save profile would go here
   };
 
   const handleConnectServer = (e: React.FormEvent) => {
@@ -31,7 +31,6 @@ const UserAccount: React.FC = () => {
     setConnectionStatus('checking');
     setServerMessage(null);
 
-    // Simulate network request
     setTimeout(() => {
         if (profile.serverUrl.includes('fentarochen.net')) {
             setConnectionStatus('connected');
@@ -45,6 +44,13 @@ const UserAccount: React.FC = () => {
 
   const handleChangePassword = (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Check old password
+    if (!verifyPassword(newPassword.current)) {
+        setPasswordMessage('Aktuelles Passwort ist falsch.');
+        return;
+    }
+
     if (newPassword.new !== newPassword.confirm) {
         setPasswordMessage('Passwörter stimmen nicht überein.');
         return;
@@ -53,7 +59,10 @@ const UserAccount: React.FC = () => {
         setPasswordMessage('Passwort zu kurz.');
         return;
     }
-    // Simulate API call
+
+    // SAVE TO STORAGE
+    updatePassword(newPassword.new);
+
     setPasswordMessage('Passwort erfolgreich aktualisiert.');
     setTimeout(() => {
         setShowPasswordChange(false);
@@ -85,7 +94,10 @@ const UserAccount: React.FC = () => {
                     <p className="text-ocean-glow font-mono text-sm mb-6">Administrator</p>
                     
                     <div className="w-full space-y-2">
-                        <button className="w-full py-2 bg-slate-800 hover:bg-slate-700 rounded border border-slate-700 text-sm text-slate-300 transition-colors flex items-center justify-center gap-2">
+                        <button
+                            onClick={() => window.location.reload()}
+                            className="w-full py-2 bg-slate-800 hover:bg-slate-700 rounded border border-slate-700 text-sm text-slate-300 transition-colors flex items-center justify-center gap-2"
+                        >
                             <LogOut size={16} /> Abmelden
                         </button>
                     </div>
@@ -95,7 +107,7 @@ const UserAccount: React.FC = () => {
             {/* Settings Form */}
             <div className="md:col-span-2 space-y-8">
                 
-                {/* Server Connection Module (New Request) */}
+                {/* Server Connection Module */}
                 <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-8">
                     <div className="flex justify-between items-center mb-6">
                         <h4 className="text-lg font-bold text-white flex items-center gap-2">
@@ -136,7 +148,6 @@ const UserAccount: React.FC = () => {
                             </div>
                         </div>
 
-                        {/* Status / Error Message Area */}
                         {connectionStatus === 'error' && (
                             <div className="bg-red-950/20 border border-red-900/50 rounded-lg p-4 flex items-start gap-3 animate-in slide-in-from-top-2">
                                 <AlertTriangle className="text-red-500 flex-shrink-0 mt-0.5" size={20} />
@@ -158,7 +169,7 @@ const UserAccount: React.FC = () => {
                     </form>
                 </div>
 
-                {/* General Info */}
+                {/* Account Details */}
                 <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-8">
                     <div className="flex justify-between items-center mb-6">
                         <h4 className="text-lg font-bold text-white flex items-center gap-2">
