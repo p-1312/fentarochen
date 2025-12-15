@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Hero from './components/Hero';
-import StorageDashboard from './components/StorageDashboard';
+import StorageDashboard from "./components/StorageDashboard.tsx";
 import FileManager from './components/FileManager';
 import Profile from './components/Profile';
 import Legal from './components/Legal';
