@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import Hero from './components/Hero';
+import Hero from "./components/Hero.tsx";
 import StorageDashboard from "./components/StorageDashboard.tsx";
 import FileManager from './components/FileManager';
-import Profile from './components/Profile';
-import Legal from './components/Legal';
-import Login from './components/Login';
+import Profile from "./components/Profile.tsx";
+import Legal from "./components/Legal.tsx";
+import Login from "./components/Login.tsx";
 import { ViewSection } from './types';
 import { Activity, HardDrive, User, Menu, X, Home } from 'lucide-react';
 
