@@ -53,7 +53,7 @@ const LoginScreen: React.FC<LoginProps> = ({ onLogin }) => {
       
       {/* Main Login Container - ONLY INPUT */}
       <div className={`relative z-10 w-full flex justify-center transition-all duration-500 ${showRecovery ? 'opacity-0 pointer-events-none blur-sm' : 'opacity-100 blur-0'}`}>
-
+        
         <form onSubmit={handleSubmit} className="w-64 md:w-96 relative">
             <input
                 type="password"
@@ -61,8 +61,8 @@ const LoginScreen: React.FC<LoginProps> = ({ onLogin }) => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="ACCESS CODE"
                 className={`w-full bg-transparent text-white text-center font-mono text-2xl tracking-[0.3em] py-4 border-b border-zinc-800 outline-none transition-all duration-300 placeholder:text-zinc-900 placeholder:text-sm placeholder:tracking-normal
-                    ${error
-                    ? 'border-red-600 text-red-600'
+                    ${error 
+                    ? 'border-red-600 text-red-600' 
                     : 'focus:border-white'
                     }
                 `}
