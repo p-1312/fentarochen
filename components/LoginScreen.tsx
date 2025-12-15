@@ -9,7 +9,7 @@ interface LoginProps {
 const LoginScreen: React.FC<LoginProps> = ({ onLogin }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(false);
-
+  
   // Recovery State
   const [showRecovery, setShowRecovery] = useState(false);
   const [recoveryStep, setRecoveryStep] = useState(0);
@@ -23,11 +23,11 @@ const LoginScreen: React.FC<LoginProps> = ({ onLogin }) => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
+    
     // Use the Service to verify password
     if (verifyPassword(password)) {
       onLogin();
-    }
+    } 
     else if (checkResetCommand(password)) {
       startRecovery();
       setPassword('');
@@ -42,7 +42,7 @@ const LoginScreen: React.FC<LoginProps> = ({ onLogin }) => {
     if (recoveryStep === 2) {
         // Reset password to default 'admin'
         updatePassword('admin');
-        setPassword('admin');
+        setPassword('admin'); 
     }
     setShowRecovery(false);
     setRecoveryStep(0);
@@ -50,7 +50,7 @@ const LoginScreen: React.FC<LoginProps> = ({ onLogin }) => {
 
   return (
     <div className="fixed inset-0 w-full h-full bg-black flex flex-col items-center justify-center overflow-hidden">
-
+      
       {/* Container is scaled down significantly (scale-50) to create "distance" effect */}
       <div className={`relative z-50 flex flex-col items-center transition-all duration-500 transform scale-50 md:scale-50 ${showRecovery ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
         <form onSubmit={handleSubmit} className="w-64">
@@ -60,8 +60,8 @@ const LoginScreen: React.FC<LoginProps> = ({ onLogin }) => {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="PASSCODE"
             className={`w-full bg-black text-white text-center font-mono text-xl tracking-[0.5em] py-3 rounded-full border-2 outline-none transition-all duration-300 placeholder:text-slate-800 placeholder:text-xs placeholder:tracking-normal
-                ${error
-                ? 'border-red-600 shadow-[0_0_30px_rgba(220,38,38,0.6)] animate-pulse'
+                ${error 
+                ? 'border-red-600 shadow-[0_0_30px_rgba(220,38,38,0.6)] animate-pulse' 
                 : 'border-white shadow-[0_0_20px_rgba(255,255,255,0.4)] focus:shadow-[0_0_40px_rgba(255,255,255,0.8)]'
                 }
             `}
@@ -103,7 +103,7 @@ const LoginScreen: React.FC<LoginProps> = ({ onLogin }) => {
                             <div className="bg-white/10 p-3 rounded text-center text-xl tracking-widest text-white font-bold border border-white/20">
                                 admin
                             </div>
-                            <button
+                            <button 
                                 onClick={closeRecovery}
                                 className="w-full mt-6 bg-white hover:bg-slate-200 text-black font-bold py-2 rounded flex items-center justify-center gap-2 transition-colors"
                             >

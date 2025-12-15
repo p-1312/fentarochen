@@ -39,7 +39,7 @@ const FileBrowser: React.FC = () => {
             type,
             size: file.size,
             // Creating a Blob URL that persists for the browser session
-            url: URL.createObjectURL(file),
+            url: URL.createObjectURL(file), 
             date: new Date()
         };
 
@@ -141,7 +141,7 @@ const FileBrowser: React.FC = () => {
                         </div>
                         <div className="col-span-2 flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                             {(file.type === 'image' || file.type === 'video') && (
-                              <button
+                              <button 
                                 onClick={() => openPreview(file)}
                                 className="p-2 hover:bg-slate-700 rounded text-white"
                                 title="Vorschau"
@@ -189,20 +189,20 @@ const FileBrowser: React.FC = () => {
                   {getIcon(selectedFile.type)}
                   <h3 className="font-bold text-white truncate max-w-md">{selectedFile.name}</h3>
                </div>
-               <button
+               <button 
                  onClick={() => setSelectedFile(null)}
                  className="p-2 hover:bg-slate-800 rounded-full text-slate-400 hover:text-white transition-colors"
                >
                  <X size={24} />
                </button>
             </div>
-
+            
             <div className="flex-1 bg-black flex items-center justify-center p-2 overflow-hidden relative group">
                {selectedFile.type === 'video' ? (
-                 <video
+                 <video 
                    key={selectedFile.url} // CRITICAL FIX: Forces React to re-mount the video player when file changes
-                   controls
-                   autoPlay
+                   controls 
+                   autoPlay 
                    playsInline
                    className="max-w-full max-h-[70vh] rounded outline-none"
                  >
@@ -210,8 +210,8 @@ const FileBrowser: React.FC = () => {
                     Dein Browser unterstützt dieses Video nicht.
                  </video>
                ) : (
-                 <img
-                   src={selectedFile.url}
+                 <img 
+                   src={selectedFile.url} 
                    alt={selectedFile.name}
                    className="max-w-full max-h-[70vh] object-contain rounded"
                  />

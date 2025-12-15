@@ -28,7 +28,7 @@ const HeroSection: React.FC<HeroProps> = ({ onExplore }) => {
           <Cloud className="inline-block" /> Personal Deep Cloud Interface
         </p>
         <div className="flex flex-col sm:flex-row justify-center gap-4 pt-8">
-           <button
+           <button 
              onClick={onExplore}
              className="group relative px-8 py-3 bg-red-950/50 border border-ocean-glow/30 hover:border-ocean-glow text-ocean-glow hover:text-white transition-all duration-300 rounded-sm uppercase tracking-widest text-sm font-semibold overflow-hidden"
            >
@@ -36,7 +36,7 @@ const HeroSection: React.FC<HeroProps> = ({ onExplore }) => {
              <div className="absolute inset-0 bg-ocean-glow/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
            </button>
 
-           <button
+           <button 
              onClick={() => setShowTrailer(true)}
              className="group relative px-8 py-3 bg-transparent border border-white/20 hover:border-white text-white transition-all duration-300 rounded-sm uppercase tracking-widest text-sm font-semibold flex items-center justify-center gap-2"
            >
@@ -54,20 +54,20 @@ const HeroSection: React.FC<HeroProps> = ({ onExplore }) => {
       {showTrailer && (
         <div className="fixed inset-0 z-[60] bg-black/95 backdrop-blur-md flex items-center justify-center p-4 animate-in fade-in duration-300">
             <div className="relative w-full max-w-5xl aspect-video bg-black rounded-lg border border-red-900 shadow-[0_0_50px_rgba(139,0,0,0.2)]">
-                <button
+                <button 
                     onClick={() => setShowTrailer(false)}
                     className="absolute -top-12 right-0 text-white hover:text-red-500 transition-colors flex items-center gap-2"
                 >
                     SCHLIESSEN <X size={24} />
                 </button>
-
+                
                 {/* Decorative Elements */}
                 <div className="absolute top-4 left-4 text-[10px] font-mono text-ocean-glow opacity-50">PLAYBACK :: ID_7721</div>
                 <div className="absolute bottom-4 right-4 text-[10px] font-mono text-ocean-glow opacity-50">SECURE STREAM</div>
-
-                <video
-                    controls
-                    autoPlay
+                
+                <video 
+                    controls 
+                    autoPlay 
                     className="w-full h-full rounded-lg"
                     poster="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070"
                 >

@@ -60,11 +60,11 @@ const Gallery: React.FC = () => {
         <p className="text-slate-400 mb-8 pl-5">Zugriff auf optische Sensoren und gespeicherte Missions-Logs.</p>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-
+            
             {/* LEFT COLUMN: VIDEO PLAYER (8 Cols) */}
             <div className="lg:col-span-8 space-y-4">
                 <div className="bg-black border border-slate-800 rounded-xl overflow-hidden shadow-2xl relative aspect-video group">
-                    <video
+                    <video 
                         key={currentVideo.url} // Force reload on change
                         src={currentVideo.url}
                         controls
@@ -73,7 +73,7 @@ const Gallery: React.FC = () => {
                         onPlay={() => setIsPlaying(true)}
                         onPause={() => setIsPlaying(false)}
                     />
-
+                    
                     {/* Video HUD Overlay (Hidden when controls active mostly, but adds flair) */}
                     <div className="absolute top-4 left-4 pointer-events-none">
                         <div className="flex items-center gap-2">
@@ -94,12 +94,12 @@ const Gallery: React.FC = () => {
                 {/* Playlist */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {MISSION_LOGS.map(log => (
-                        <div
-                            key={log.id}
+                        <div 
+                            key={log.id} 
                             onClick={() => setCurrentVideo(log)}
                             className={`p-3 rounded-lg border cursor-pointer transition-all flex gap-3 items-center group ${
-                                currentVideo.id === log.id
-                                ? 'bg-ocean-glow/10 border-ocean-glow/50'
+                                currentVideo.id === log.id 
+                                ? 'bg-ocean-glow/10 border-ocean-glow/50' 
                                 : 'bg-slate-900/40 border-slate-800 hover:bg-slate-800 hover:border-slate-600'
                             }`}
                         >
@@ -124,14 +124,14 @@ const Gallery: React.FC = () => {
                  <div className="w-full aspect-square bg-slate-900 rounded-xl border-2 border-slate-800 overflow-hidden relative flex items-center justify-center group shadow-lg">
                     {imageUrl ? (
                         <>
-                        <img
-                            src={imageUrl}
-                            alt="FentaRochen Generation"
+                        <img 
+                            src={imageUrl} 
+                            alt="FentaRochen Generation" 
                             className="w-full h-full object-cover animate-in fade-in duration-700"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                            <a
-                            href={imageUrl}
+                            <a 
+                            href={imageUrl} 
                             download="fentarochen_vision.png"
                             className="text-white flex items-center gap-2 hover:text-ocean-glow transition-colors font-mono text-sm"
                             >
@@ -158,27 +158,27 @@ const Gallery: React.FC = () => {
                          <Eye size={20} />
                          <h3 className="font-bold tracking-wider text-sm">SONAR VISUALIZER</h3>
                     </div>
-
+                    
                     <textarea
                         value={promptInput}
                         onChange={(e) => setPromptInput(e.target.value)}
                         placeholder="Beschreibe die Umgebung für die Sonar-Rekonstruktion (z.B. Eishöhle, Wrack, Schwarm)..."
                         className="w-full flex-1 min-h-[100px] bg-black border border-slate-700 rounded-lg p-3 text-slate-300 text-sm focus:border-ocean-glow focus:ring-1 focus:ring-ocean-glow outline-none resize-none mb-4"
                     />
-
+                    
                     <button
                         onClick={handleGenerate}
                         disabled={loading}
                         className={`w-full py-4 rounded-lg font-bold uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${
-                        loading
-                            ? 'bg-slate-800 text-slate-500 cursor-wait'
+                        loading 
+                            ? 'bg-slate-800 text-slate-500 cursor-wait' 
                             : 'bg-bio-green hover:bg-emerald-400 text-slate-950 shadow-[0_0_20px_rgba(16,185,129,0.3)]'
                         }`}
                     >
                         {loading ? <RefreshCw className="animate-spin" size={20} /> : <Camera size={20} />}
                         {loading ? 'RENDERING...' : 'GENERATE'}
                     </button>
-
+                    
                     <p className="text-[10px] text-slate-500 mt-4 leading-relaxed font-mono">
                         Nutzung der Gemini 2.5 Flash Image API zur Rekonstruktion visueller Daten aus akustischen Signalen.
                     </p>

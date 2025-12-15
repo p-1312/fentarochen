@@ -50,7 +50,7 @@ const Dashboard: React.FC = () => {
         <div className="mb-8 w-full">
           <div className="bg-black/80 border border-slate-800 rounded-xl overflow-hidden relative group">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-ocean-glow to-transparent opacity-50"></div>
-
+            
             {/* Header overlay */}
             <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-start z-10 bg-gradient-to-b from-black/80 to-transparent">
               <div className="flex items-center gap-2">
@@ -66,11 +66,11 @@ const Dashboard: React.FC = () => {
             <div className="relative w-full aspect-[21/9] md:aspect-[32/9] overflow-hidden bg-[#000510]">
               {/* Deep Sea Simulation CSS */}
               <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.1),transparent_70%)]"></div>
-
+              
               {/* Particles */}
               <div className="absolute inset-0 overflow-hidden">
                  {[...Array(20)].map((_, i) => (
-                   <div
+                   <div 
                      key={i}
                      className="absolute bg-white/10 rounded-full blur-[1px]"
                      style={{
@@ -217,7 +217,7 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
       </div>
-
+      
       <style>{`
         @keyframes scan {
           0% { top: 0; }

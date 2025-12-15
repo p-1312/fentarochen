@@ -44,7 +44,7 @@ const UserAccount: React.FC = () => {
 
   const handleChangePassword = (e: React.FormEvent) => {
     e.preventDefault();
-
+    
     // Check old password
     if (!verifyPassword(newPassword.current)) {
         setPasswordMessage('Aktuelles Passwort ist falsch.');
@@ -59,7 +59,7 @@ const UserAccount: React.FC = () => {
         setPasswordMessage('Passwort zu kurz.');
         return;
     }
-
+    
     // SAVE TO STORAGE
     updatePassword(newPassword.new);
 
@@ -94,7 +94,7 @@ const UserAccount: React.FC = () => {
                     <p className="text-ocean-glow font-mono text-sm mb-6">Administrator</p>
                     
                     <div className="w-full space-y-2">
-                        <button
+                        <button 
                             onClick={() => window.location.reload()}
                             className="w-full py-2 bg-slate-800 hover:bg-slate-700 rounded border border-slate-700 text-sm text-slate-300 transition-colors flex items-center justify-center gap-2"
                         >
