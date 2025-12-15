@@ -71,21 +71,21 @@ const App: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 font-sans selection:bg-ocean-glow selection:text-black">
+    <div className="min-h-screen bg-black text-white font-sans selection:bg-ocean-glow selection:text-white">
       {/* Sticky Navigation */}
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/80 backdrop-blur-md border-b border-white/5">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-black/95 backdrop-blur-md border-b border-white/10 h-20 flex items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="flex items-center justify-between">
             <div 
               className="flex items-center gap-2 cursor-pointer group" 
               onClick={() => handleNavClick(ViewSection.HOME)}
             >
-              <div className="text-ocean-glow transition-all duration-300 group-hover:drop-shadow-[0_0_10px_rgba(6,182,212,0.8)] group-hover:scale-110">
-                <FentanylPatchIcon size={28} />
+              <div className="text-ocean-glow transition-all duration-300 group-hover:drop-shadow-[0_0_10px_rgba(139,0,0,0.8)] group-hover:scale-110">
+                <FentanylPatchIcon size={32} />
               </div>
-              <span className="font-bold text-xl tracking-tighter text-white transition-colors group-hover:text-ocean-glow">
+              <span className="font-bold text-2xl tracking-tighter text-white transition-colors group-hover:text-ocean-glow">
                 FENTA<span className="text-ocean-glow group-hover:text-white transition-colors">ROCHEN</span>
-                <span className="text-[10px] ml-2 text-slate-500 font-normal border border-slate-700 rounded px-1">CLOUD</span>
+                <span className="text-[10px] ml-2 text-zinc-500 font-normal border border-zinc-800 rounded px-1 align-top relative top-[-5px]">CLOUD</span>
               </span>
             </div>
             
@@ -94,31 +94,31 @@ const App: React.FC = () => {
               <div className="ml-10 flex items-baseline space-x-4">
                 <button
                   onClick={() => handleNavClick(ViewSection.HOME)}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${currentView === ViewSection.HOME ? 'text-white bg-white/10' : 'text-slate-400 hover:text-white'}`}
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${currentView === ViewSection.HOME ? 'text-ocean-glow bg-white/5 border border-ocean-glow/20' : 'text-zinc-400 hover:text-white hover:bg-white/5'}`}
                 >
                   START
                 </button>
                 <button
                   onClick={() => handleNavClick(ViewSection.DASHBOARD)}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${currentView === ViewSection.DASHBOARD ? 'text-white bg-white/10' : 'text-slate-400 hover:text-white'}`}
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${currentView === ViewSection.DASHBOARD ? 'text-ocean-glow bg-white/5 border border-ocean-glow/20' : 'text-zinc-400 hover:text-white hover:bg-white/5'}`}
                 >
                   <Activity size={16} /> DATEN
                 </button>
                 <button
                   onClick={() => handleNavClick(ViewSection.VISION)}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${currentView === ViewSection.VISION ? 'text-white bg-white/10' : 'text-slate-400 hover:text-white'}`}
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${currentView === ViewSection.VISION ? 'text-ocean-glow bg-white/5 border border-ocean-glow/20' : 'text-zinc-400 hover:text-white hover:bg-white/5'}`}
                 >
                   <Eye size={16} /> VISION
                 </button>
                 <button
                   onClick={() => handleNavClick(ViewSection.FILES)}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${currentView === ViewSection.FILES ? 'text-white bg-white/10' : 'text-slate-400 hover:text-white'}`}
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${currentView === ViewSection.FILES ? 'text-ocean-glow bg-white/5 border border-ocean-glow/20' : 'text-zinc-400 hover:text-white hover:bg-white/5'}`}
                 >
                   <HardDrive size={16} /> FILES
                 </button>
                 <button
                   onClick={() => handleNavClick(ViewSection.PROFILE)}
-                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${currentView === ViewSection.PROFILE ? 'text-white bg-white/10' : 'text-slate-400 hover:text-white'}`}
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${currentView === ViewSection.PROFILE ? 'text-ocean-glow bg-white/5 border border-ocean-glow/20' : 'text-zinc-400 hover:text-white hover:bg-white/5'}`}
                 >
                   <User size={16} /> PROFIL
                 </button>
@@ -129,7 +129,7 @@ const App: React.FC = () => {
             <div className="md:hidden flex items-center">
                <button 
                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                 className="text-slate-400 hover:text-white p-2"
+                 className="text-zinc-400 hover:text-white p-2"
                >
                  {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                </button>
@@ -139,11 +139,11 @@ const App: React.FC = () => {
 
         {/* Mobile Menu Dropdown */}
         {isMobileMenuOpen && (
-          <div className="md:hidden bg-slate-900/95 backdrop-blur-xl border-b border-slate-800 animate-in slide-in-from-top-2">
+          <div className="absolute top-20 left-0 right-0 bg-black/95 backdrop-blur-xl border-b border-white/10 animate-in slide-in-from-top-2 shadow-2xl">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
               <button
                 onClick={() => handleNavClick(ViewSection.HOME)}
-                className={`w-full text-left block px-3 py-3 rounded-md text-base font-medium ${currentView === ViewSection.HOME ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}
+                className={`w-full text-left block px-3 py-3 rounded-md text-base font-medium ${currentView === ViewSection.HOME ? 'bg-white/10 text-ocean-glow' : 'text-zinc-300 hover:bg-zinc-900 hover:text-white'}`}
               >
                 <div className="flex items-center gap-3">
                   <Home size={18} /> START
@@ -151,7 +151,7 @@ const App: React.FC = () => {
               </button>
               <button
                 onClick={() => handleNavClick(ViewSection.DASHBOARD)}
-                className={`w-full text-left block px-3 py-3 rounded-md text-base font-medium ${currentView === ViewSection.DASHBOARD ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}
+                className={`w-full text-left block px-3 py-3 rounded-md text-base font-medium ${currentView === ViewSection.DASHBOARD ? 'bg-white/10 text-ocean-glow' : 'text-zinc-300 hover:bg-zinc-900 hover:text-white'}`}
               >
                  <div className="flex items-center gap-3">
                   <Activity size={18} /> DATEN
@@ -159,7 +159,7 @@ const App: React.FC = () => {
               </button>
               <button
                 onClick={() => handleNavClick(ViewSection.VISION)}
-                className={`w-full text-left block px-3 py-3 rounded-md text-base font-medium ${currentView === ViewSection.VISION ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}
+                className={`w-full text-left block px-3 py-3 rounded-md text-base font-medium ${currentView === ViewSection.VISION ? 'bg-white/10 text-ocean-glow' : 'text-zinc-300 hover:bg-zinc-900 hover:text-white'}`}
               >
                  <div className="flex items-center gap-3">
                   <Eye size={18} /> VISION
@@ -167,7 +167,7 @@ const App: React.FC = () => {
               </button>
               <button
                 onClick={() => handleNavClick(ViewSection.FILES)}
-                className={`w-full text-left block px-3 py-3 rounded-md text-base font-medium ${currentView === ViewSection.FILES ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}
+                className={`w-full text-left block px-3 py-3 rounded-md text-base font-medium ${currentView === ViewSection.FILES ? 'bg-white/10 text-ocean-glow' : 'text-zinc-300 hover:bg-zinc-900 hover:text-white'}`}
               >
                  <div className="flex items-center gap-3">
                   <HardDrive size={18} /> FILES
@@ -175,7 +175,7 @@ const App: React.FC = () => {
               </button>
               <button
                 onClick={() => handleNavClick(ViewSection.PROFILE)}
-                className={`w-full text-left block px-3 py-3 rounded-md text-base font-medium ${currentView === ViewSection.PROFILE ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}
+                className={`w-full text-left block px-3 py-3 rounded-md text-base font-medium ${currentView === ViewSection.PROFILE ? 'bg-white/10 text-ocean-glow' : 'text-zinc-300 hover:bg-zinc-900 hover:text-white'}`}
               >
                  <div className="flex items-center gap-3">
                   <User size={18} /> PROFIL
@@ -193,11 +193,11 @@ const App: React.FC = () => {
 
       {/* Footer */}
       {currentView !== ViewSection.HOME && (
-        <footer className="bg-black py-8 border-t border-slate-900 text-center text-slate-600 text-sm">
+        <footer className="bg-black py-8 border-t border-zinc-900 text-center text-zinc-600 text-sm">
           <p className="mb-2">© 2024 FentaRochen Cloud Systems (v0.7.8). Secure Personal Data Environment.</p>
           <button 
             onClick={() => handleNavClick(ViewSection.LEGAL)}
-            className="text-slate-700 hover:text-ocean-glow transition-colors underline decoration-dotted"
+            className="text-zinc-500 hover:text-ocean-glow transition-colors underline decoration-dotted"
           >
             Impressum & Datenschutz
           </button>

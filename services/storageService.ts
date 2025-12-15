@@ -43,18 +43,18 @@ export const getStoredFiles = (): FileItem[] => {
 export const addStoredFile = (file: FileItem) => {
   // Add to memory
   memoryFiles = [file, ...memoryFiles];
-
+  
   // Persist to LocalStorage
-  // Note: We filter out huge Blob URLs for localStorage to avoid quota errors,
+  // Note: We filter out huge Blob URLs for localStorage to avoid quota errors, 
   // keeping only the metadata or Base64 images if they are small enough.
   const filesToSave = memoryFiles.map(f => {
     // If it's a blob url (video/large image), we can't really save the data permanently in localStorage
     // So we save the entry, but if the user refreshes (F5), the link will be broken.
-    // For a real app, this needs IndexedDB or a backend.
+    // For a real app, this needs IndexedDB or a backend. 
     // For this demo: We save it, but we know blob: urls expire on refresh.
-    return f;
+    return f; 
   });
-
+  
   try {
     localStorage.setItem(KEY_FILES, JSON.stringify(filesToSave));
   } catch (e) {

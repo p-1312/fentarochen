@@ -1,12 +1,13 @@
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
-import { HardDrive, Cloud, Server, Activity, Globe, Wifi, Eye, Radio, Maximize2 } from 'lucide-react';
+import { HardDrive, Cloud, Server, Activity, Globe, Wifi, Maximize2 } from 'lucide-react';
 
+// Color Palette for charts: DarkRed themed
 const storageData = [
-  { name: 'Videos', value: 450, color: '#06b6d4' }, // cyan
-  { name: 'Musik', value: 300, color: '#10b981' },  // green
-  { name: 'Dokumente', value: 150, color: '#f59e0b' }, // amber
-  { name: 'System', value: 50, color: '#64748b' },   // slate
+  { name: 'Videos', value: 450, color: '#8B0000' }, // Dark Red
+  { name: 'Musik', value: 300, color: '#DC143C' },  // Crimson
+  { name: 'Dokumente', value: 150, color: '#FF0000' }, // Red
+  { name: 'System', value: 50, color: '#525252' },   // Neutral Grey
 ];
 
 const trafficData = [
@@ -25,12 +26,12 @@ const Dashboard: React.FC = () => {
   const percentage = Math.round((usedStorage / totalStorage) * 100);
 
   return (
-    <div className="w-full min-h-screen bg-slate-950 p-6 md:p-12 pt-24 flex flex-col gap-8">
+    <div className="w-full min-h-screen bg-black p-6 md:p-12 pt-32 flex flex-col gap-8">
       <div className="max-w-7xl mx-auto w-full">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
             <h2 className="text-4xl font-bold text-white mb-2 border-l-4 border-ocean-glow pl-4 flex items-center gap-3">
-              Cloud Interface <span className="text-sm font-mono font-normal text-slate-500 bg-slate-900 px-2 py-1 rounded border border-slate-800">v0.7.5</span>
+              Cloud Interface <span className="text-sm font-mono font-normal text-zinc-500 bg-zinc-900 px-2 py-1 rounded border border-zinc-800">v0.7.5</span>
             </h2>
             <div className="pl-5 flex items-center gap-2 text-ocean-glow font-mono text-sm">
                 <Globe size={14} />
@@ -40,22 +41,22 @@ const Dashboard: React.FC = () => {
                 </a>
             </div>
           </div>
-          <div className="flex items-center gap-2 px-4 py-2 bg-emerald-950/30 border border-emerald-900/50 rounded animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.2)]">
-            <Wifi size={16} className="text-emerald-500" />
-            <span className="text-xs font-mono text-emerald-400 tracking-widest uppercase">Server Online</span>
+          <div className="flex items-center gap-2 px-4 py-2 bg-white/5 border border-white/10 rounded animate-pulse shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+            <Wifi size={16} className="text-white" />
+            <span className="text-xs font-mono text-white tracking-widest uppercase">Server Online</span>
           </div>
         </div>
 
         {/* Live Video Feed Widget */}
         <div className="mb-8 w-full">
-          <div className="bg-black/80 border border-slate-800 rounded-xl overflow-hidden relative group">
+          <div className="bg-black border border-zinc-800 rounded-xl overflow-hidden relative group shadow-[0_0_30px_rgba(139,0,0,0.15)]">
             <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-ocean-glow to-transparent opacity-50"></div>
             
             {/* Header overlay */}
             <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-start z-10 bg-gradient-to-b from-black/80 to-transparent">
               <div className="flex items-center gap-2">
-                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
-                <span className="text-red-500 font-mono text-xs font-bold tracking-widest">LIVE FEED // CAM-01 [BUG]</span>
+                <div className="w-2 h-2 bg-red-600 rounded-full animate-pulse"></div>
+                <span className="text-red-600 font-mono text-xs font-bold tracking-widest">LIVE FEED // CAM-01 [BUG]</span>
               </div>
               <div className="font-mono text-xs text-ocean-glow/80">
                 TIEFE: -4102m | DRUCK: 420bar
@@ -63,16 +64,16 @@ const Dashboard: React.FC = () => {
             </div>
 
             {/* Video Content Simulation */}
-            <div className="relative w-full aspect-[21/9] md:aspect-[32/9] overflow-hidden bg-[#000510]">
+            <div className="relative w-full aspect-[21/9] md:aspect-[32/9] overflow-hidden bg-[#0a0000]">
               {/* Deep Sea Simulation CSS */}
-              <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.1),transparent_70%)]"></div>
+              <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_50%,rgba(139,0,0,0.1),transparent_70%)]"></div>
               
               {/* Particles */}
               <div className="absolute inset-0 overflow-hidden">
                  {[...Array(20)].map((_, i) => (
                    <div 
                      key={i}
-                     className="absolute bg-white/10 rounded-full blur-[1px]"
+                     className="absolute bg-white/20 rounded-full blur-[1px]"
                      style={{
                        width: Math.random() * 4 + 1 + 'px',
                        height: Math.random() * 4 + 1 + 'px',
@@ -84,13 +85,13 @@ const Dashboard: React.FC = () => {
                  ))}
               </div>
 
-              {/* Light beams */}
-              <div className="absolute top-[-50%] left-[20%] w-[20%] h-[200%] bg-gradient-to-b from-ocean-glow/5 to-transparent rotate-12 blur-3xl animate-pulse-slow"></div>
-              <div className="absolute top-[-50%] left-[60%] w-[15%] h-[200%] bg-gradient-to-b from-bio-green/5 to-transparent -rotate-12 blur-3xl animate-pulse-slow delay-700"></div>
+              {/* Light beams (Red Tint) */}
+              <div className="absolute top-[-50%] left-[20%] w-[20%] h-[200%] bg-gradient-to-b from-ocean-glow/10 to-transparent rotate-12 blur-3xl animate-pulse-slow"></div>
+              <div className="absolute top-[-50%] left-[60%] w-[15%] h-[200%] bg-gradient-to-b from-white/5 to-transparent -rotate-12 blur-3xl animate-pulse-slow delay-700"></div>
 
               {/* Scanline */}
-              <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px] pointer-events-none opacity-20"></div>
-              <div className="absolute w-full h-[2px] bg-ocean-glow/30 top-0 animate-[scan_4s_linear_infinite] shadow-[0_0_10px_rgba(6,182,212,0.5)]"></div>
+              <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.8)_50%)] bg-[length:100%_4px] pointer-events-none opacity-40"></div>
+              <div className="absolute w-full h-[2px] bg-ocean-glow/50 top-0 animate-[scan_4s_linear_infinite] shadow-[0_0_10px_rgba(139,0,0,0.5)]"></div>
 
               {/* Central HUD Crosshair */}
               <div className="absolute inset-0 flex items-center justify-center opacity-30 pointer-events-none">
@@ -106,7 +107,7 @@ const Dashboard: React.FC = () => {
 
             {/* Bottom Info */}
             <div className="absolute bottom-0 left-0 right-0 p-4 flex justify-between items-end z-10 bg-gradient-to-t from-black/90 to-transparent">
-               <div className="text-[10px] font-mono text-slate-500">
+               <div className="text-[10px] font-mono text-zinc-500">
                   <p>ISO: 12800</p>
                   <p>BLENDE: F/1.4</p>
                   <p>BELICHTUNG: 1/60</p>
@@ -122,39 +123,39 @@ const Dashboard: React.FC = () => {
 
         {/* Quick Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
-           <div className="bg-slate-900/50 border border-slate-800 p-6 rounded-lg flex items-center gap-4 hover:border-ocean-glow/30 transition-colors">
+           <div className="bg-zinc-900/30 border border-zinc-800 p-6 rounded-lg flex items-center gap-4 hover:border-ocean-glow/30 transition-colors">
               <div className="p-3 bg-ocean-glow/10 rounded-lg text-ocean-glow">
                 <HardDrive size={24} />
               </div>
               <div>
-                <div className="text-slate-400 text-xs uppercase tracking-wider">Belegt</div>
-                <div className="text-xl font-bold text-white">{usedStorage} GB <span className="text-slate-600 text-sm">/ {totalStorage} GB</span></div>
+                <div className="text-zinc-500 text-xs uppercase tracking-wider">Belegt</div>
+                <div className="text-xl font-bold text-white">{usedStorage} GB <span className="text-zinc-600 text-sm">/ {totalStorage} GB</span></div>
               </div>
            </div>
-           <div className="bg-slate-900/50 border border-slate-800 p-6 rounded-lg flex items-center gap-4 hover:border-purple-500/30 transition-colors">
-              <div className="p-3 bg-purple-500/10 rounded-lg text-purple-500">
+           <div className="bg-zinc-900/30 border border-zinc-800 p-6 rounded-lg flex items-center gap-4 hover:border-white/30 transition-colors">
+              <div className="p-3 bg-white/10 rounded-lg text-white">
                 <Cloud size={24} />
               </div>
               <div>
-                <div className="text-slate-400 text-xs uppercase tracking-wider">Sync Status</div>
+                <div className="text-zinc-500 text-xs uppercase tracking-wider">Sync Status</div>
                 <div className="text-xl font-bold text-white">Aktiv</div>
               </div>
            </div>
-           <div className="bg-slate-900/50 border border-slate-800 p-6 rounded-lg flex items-center gap-4 hover:border-blue-500/30 transition-colors">
-              <div className="p-3 bg-blue-500/10 rounded-lg text-blue-500">
+           <div className="bg-zinc-900/30 border border-zinc-800 p-6 rounded-lg flex items-center gap-4 hover:border-red-500/30 transition-colors">
+              <div className="p-3 bg-red-500/10 rounded-lg text-red-500">
                 <Server size={24} />
               </div>
               <div>
-                <div className="text-slate-400 text-xs uppercase tracking-wider">CPU Last</div>
+                <div className="text-zinc-500 text-xs uppercase tracking-wider">CPU Last</div>
                 <div className="text-xl font-bold text-white">12%</div>
               </div>
            </div>
-           <div className="bg-slate-900/50 border border-slate-800 p-6 rounded-lg flex items-center gap-4 hover:border-yellow-500/30 transition-colors">
-              <div className="p-3 bg-yellow-500/10 rounded-lg text-yellow-500">
+           <div className="bg-zinc-900/30 border border-zinc-800 p-6 rounded-lg flex items-center gap-4 hover:border-zinc-500/30 transition-colors">
+              <div className="p-3 bg-zinc-500/10 rounded-lg text-zinc-500">
                 <Activity size={24} />
               </div>
               <div>
-                <div className="text-slate-400 text-xs uppercase tracking-wider">Uptime</div>
+                <div className="text-zinc-500 text-xs uppercase tracking-wider">Uptime</div>
                 <div className="text-xl font-bold text-white">14d 2h</div>
               </div>
            </div>
@@ -162,12 +163,12 @@ const Dashboard: React.FC = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Storage Distribution */}
-          <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 backdrop-blur-sm">
+          <div className="bg-zinc-900/30 border border-zinc-800 rounded-xl p-6 backdrop-blur-sm">
             <h3 className="text-xl text-ocean-glow font-mono mb-6 uppercase tracking-wider">Speicherverteilung</h3>
             <div className="h-[300px] w-full flex items-center justify-center relative">
               <div className="absolute inset-0 flex items-center justify-center flex-col pointer-events-none">
                 <span className="text-4xl font-bold text-white">{percentage}%</span>
-                <span className="text-xs text-slate-500 uppercase">Belegt</span>
+                <span className="text-xs text-zinc-500 uppercase">Belegt</span>
               </div>
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
@@ -186,7 +187,7 @@ const Dashboard: React.FC = () => {
                     ))}
                   </Pie>
                   <Tooltip 
-                    contentStyle={{ backgroundColor: '#0f172a', borderColor: '#1e293b', borderRadius: '8px' }}
+                    contentStyle={{ backgroundColor: '#000', borderColor: '#333', borderRadius: '8px' }}
                     itemStyle={{ color: '#fff' }}
                   />
                   <Legend verticalAlign="bottom" height={36} />
@@ -196,21 +197,21 @@ const Dashboard: React.FC = () => {
           </div>
 
           {/* Network Traffic */}
-          <div className="bg-slate-900/50 border border-slate-800 rounded-xl p-6 backdrop-blur-sm">
-             <h3 className="text-xl text-bio-green font-mono mb-6 uppercase tracking-wider">Netzwerk Traffic (MB)</h3>
+          <div className="bg-zinc-900/30 border border-zinc-800 rounded-xl p-6 backdrop-blur-sm">
+             <h3 className="text-xl text-white font-mono mb-6 uppercase tracking-wider">Netzwerk Traffic (MB)</h3>
              <div className="h-[300px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={trafficData}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
-                  <XAxis dataKey="time" stroke="#64748b" />
-                  <YAxis stroke="#64748b" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#333" vertical={false} />
+                  <XAxis dataKey="time" stroke="#666" />
+                  <YAxis stroke="#666" />
                   <Tooltip 
-                    cursor={{fill: '#1e293b', opacity: 0.4}}
-                    contentStyle={{ backgroundColor: '#0f172a', borderColor: '#1e293b', color: '#f1f5f9' }}
+                    cursor={{fill: '#333', opacity: 0.4}}
+                    contentStyle={{ backgroundColor: '#000', borderColor: '#333', color: '#fff' }}
                   />
                   <Legend />
-                  <Bar name="Upload" dataKey="upload" fill="#06b6d4" radius={[4, 4, 0, 0]} />
-                  <Bar name="Download" dataKey="download" fill="#10b981" radius={[4, 4, 0, 0]} />
+                  <Bar name="Upload" dataKey="upload" fill="#8B0000" radius={[4, 4, 0, 0]} />
+                  <Bar name="Download" dataKey="download" fill="#FFFFFF" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>

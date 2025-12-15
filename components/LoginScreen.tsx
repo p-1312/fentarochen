@@ -88,9 +88,9 @@ const LoginScreen: React.FC<LoginProps> = ({ onLogin }) => {
                     <p className="mb-2 text-slate-500">Initializing biometric bypass protocol...</p>
                     {recoveryStep >= 1 && (
                         <>
-                            <p>> Connecting to Mainframe... <span className="text-white">OK</span></p>
-                            <p>> Bypassing Firewall Layer 1... <span className="text-white">OK</span></p>
-                            <p>> Decrypting User Hash...</p>
+                            <p>&gt; Connecting to Mainframe... <span className="text-white">OK</span></p>
+                            <p>&gt; Bypassing Firewall Layer 1... <span className="text-white">OK</span></p>
+                            <p>&gt; Decrypting User Hash...</p>
                             <div className="my-4 w-full bg-slate-900 h-1 overflow-hidden">
                                 <div className="h-full bg-red-600 animate-[scan_2s_ease-in-out_infinite] w-1/2"></div>
                             </div>

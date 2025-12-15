@@ -52,18 +52,18 @@ const Gallery: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-white p-4 md:p-12 pt-24 flex flex-col items-center">
+    <div className="min-h-screen bg-black text-white p-4 md:p-12 pt-32 flex flex-col items-center">
       <div className="max-w-7xl w-full">
         <h2 className="text-4xl font-bold mb-2 border-l-4 border-ocean-glow pl-4 flex items-center gap-3">
             VISION HUB <span className="text-xs bg-ocean-glow/20 text-ocean-glow px-2 py-1 rounded border border-ocean-glow/30">MEDIA CENTER</span>
         </h2>
-        <p className="text-slate-400 mb-8 pl-5">Zugriff auf optische Sensoren und gespeicherte Missions-Logs.</p>
+        <p className="text-zinc-400 mb-8 pl-5">Zugriff auf optische Sensoren und gespeicherte Missions-Logs.</p>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
             
             {/* LEFT COLUMN: VIDEO PLAYER (8 Cols) */}
             <div className="lg:col-span-8 space-y-4">
-                <div className="bg-black border border-slate-800 rounded-xl overflow-hidden shadow-2xl relative aspect-video group">
+                <div className="bg-black border border-zinc-800 rounded-xl overflow-hidden shadow-2xl relative aspect-video group">
                     <video 
                         key={currentVideo.url} // Force reload on change
                         src={currentVideo.url}
@@ -77,18 +77,18 @@ const Gallery: React.FC = () => {
                     {/* Video HUD Overlay (Hidden when controls active mostly, but adds flair) */}
                     <div className="absolute top-4 left-4 pointer-events-none">
                         <div className="flex items-center gap-2">
-                             <div className={`w-2 h-2 rounded-full ${isPlaying ? 'bg-red-500 animate-pulse' : 'bg-slate-500'}`}></div>
+                             <div className={`w-2 h-2 rounded-full ${isPlaying ? 'bg-red-500 animate-pulse' : 'bg-zinc-500'}`}></div>
                              <span className="text-[10px] font-mono tracking-widest text-white/50">{isPlaying ? 'PLAYBACK :: ACTIVE' : 'PLAYBACK :: PAUSED'}</span>
                         </div>
                     </div>
                 </div>
 
-                <div className="bg-slate-900/50 border border-slate-800 p-6 rounded-xl">
+                <div className="bg-zinc-900/50 border border-zinc-800 p-6 rounded-xl">
                     <h3 className="text-xl font-bold text-white mb-1 flex items-center gap-2">
                         <Film className="text-ocean-glow" size={20} />
                         {currentVideo.title}
                     </h3>
-                    <p className="text-slate-400 text-sm">{currentVideo.description}</p>
+                    <p className="text-zinc-400 text-sm">{currentVideo.description}</p>
                 </div>
 
                 {/* Playlist */}
@@ -100,7 +100,7 @@ const Gallery: React.FC = () => {
                             className={`p-3 rounded-lg border cursor-pointer transition-all flex gap-3 items-center group ${
                                 currentVideo.id === log.id 
                                 ? 'bg-ocean-glow/10 border-ocean-glow/50' 
-                                : 'bg-slate-900/40 border-slate-800 hover:bg-slate-800 hover:border-slate-600'
+                                : 'bg-zinc-900/40 border-zinc-800 hover:bg-zinc-800 hover:border-zinc-600'
                             }`}
                         >
                             <div className="relative w-16 h-12 bg-black rounded overflow-hidden flex-shrink-0">
@@ -110,8 +110,8 @@ const Gallery: React.FC = () => {
                                 </div>
                             </div>
                             <div className="overflow-hidden">
-                                <div className={`text-xs font-bold truncate ${currentVideo.id === log.id ? 'text-ocean-glow' : 'text-slate-300'}`}>{log.title}</div>
-                                <div className="text-[10px] font-mono text-slate-500">{log.duration}</div>
+                                <div className={`text-xs font-bold truncate ${currentVideo.id === log.id ? 'text-ocean-glow' : 'text-zinc-300'}`}>{log.title}</div>
+                                <div className="text-[10px] font-mono text-zinc-500">{log.duration}</div>
                             </div>
                         </div>
                     ))}
@@ -121,7 +121,7 @@ const Gallery: React.FC = () => {
             {/* RIGHT COLUMN: AI IMAGE GEN (4 Cols) */}
             <div className="lg:col-span-4 flex flex-col gap-6">
                  {/* Generation Display */}
-                 <div className="w-full aspect-square bg-slate-900 rounded-xl border-2 border-slate-800 overflow-hidden relative flex items-center justify-center group shadow-lg">
+                 <div className="w-full aspect-square bg-black rounded-xl border-2 border-zinc-800 overflow-hidden relative flex items-center justify-center group shadow-lg">
                     {imageUrl ? (
                         <>
                         <img 
@@ -141,8 +141,8 @@ const Gallery: React.FC = () => {
                         </>
                     ) : (
                         <div className="text-center p-8">
-                            <Aperture className="w-16 h-16 text-slate-800 mx-auto mb-4 animate-spin-slow" />
-                            <p className="text-slate-500 font-mono text-sm tracking-widest uppercase">
+                            <Aperture className="w-16 h-16 text-zinc-800 mx-auto mb-4 animate-spin-slow" />
+                            <p className="text-zinc-500 font-mono text-sm tracking-widest uppercase">
                                 Sensor Standby...
                             </p>
                         </div>
@@ -153,7 +153,7 @@ const Gallery: React.FC = () => {
                 </div>
 
                 {/* Generation Controls */}
-                <div className="bg-slate-900/80 p-6 rounded-xl border border-slate-800 flex-1 flex flex-col">
+                <div className="bg-zinc-900/50 p-6 rounded-xl border border-zinc-800 flex-1 flex flex-col">
                     <div className="flex items-center gap-2 mb-4 text-ocean-glow">
                          <Eye size={20} />
                          <h3 className="font-bold tracking-wider text-sm">SONAR VISUALIZER</h3>
@@ -163,7 +163,7 @@ const Gallery: React.FC = () => {
                         value={promptInput}
                         onChange={(e) => setPromptInput(e.target.value)}
                         placeholder="Beschreibe die Umgebung für die Sonar-Rekonstruktion (z.B. Eishöhle, Wrack, Schwarm)..."
-                        className="w-full flex-1 min-h-[100px] bg-black border border-slate-700 rounded-lg p-3 text-slate-300 text-sm focus:border-ocean-glow focus:ring-1 focus:ring-ocean-glow outline-none resize-none mb-4"
+                        className="w-full flex-1 min-h-[100px] bg-black border border-zinc-700 rounded-lg p-3 text-zinc-300 text-sm focus:border-ocean-glow focus:ring-1 focus:ring-ocean-glow outline-none resize-none mb-4"
                     />
                     
                     <button
@@ -171,15 +171,15 @@ const Gallery: React.FC = () => {
                         disabled={loading}
                         className={`w-full py-4 rounded-lg font-bold uppercase tracking-widest flex items-center justify-center gap-2 transition-all ${
                         loading 
-                            ? 'bg-slate-800 text-slate-500 cursor-wait' 
-                            : 'bg-bio-green hover:bg-emerald-400 text-slate-950 shadow-[0_0_20px_rgba(16,185,129,0.3)]'
+                            ? 'bg-zinc-800 text-zinc-500 cursor-wait' 
+                            : 'bg-white hover:bg-gray-200 text-black shadow-[0_0_20px_rgba(255,255,255,0.2)]'
                         }`}
                     >
                         {loading ? <RefreshCw className="animate-spin" size={20} /> : <Camera size={20} />}
                         {loading ? 'RENDERING...' : 'GENERATE'}
                     </button>
                     
-                    <p className="text-[10px] text-slate-500 mt-4 leading-relaxed font-mono">
+                    <p className="text-[10px] text-zinc-500 mt-4 leading-relaxed font-mono">
                         Nutzung der Gemini 2.5 Flash Image API zur Rekonstruktion visueller Daten aus akustischen Signalen.
                     </p>
                 </div>
