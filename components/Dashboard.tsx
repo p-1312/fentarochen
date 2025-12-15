@@ -1,6 +1,6 @@
 import React from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend, BarChart, Bar, XAxis, YAxis, CartesianGrid } from 'recharts';
-import { HardDrive, Cloud, Server, Activity, Globe, Wifi } from 'lucide-react';
+import { HardDrive, Cloud, Server, Activity, Globe, Wifi, Eye, Radio, Maximize2 } from 'lucide-react';
 
 const storageData = [
   { name: 'Videos', value: 450, color: '#06b6d4' }, // cyan
@@ -43,6 +43,80 @@ const Dashboard: React.FC = () => {
           <div className="flex items-center gap-2 px-4 py-2 bg-emerald-950/30 border border-emerald-900/50 rounded animate-pulse shadow-[0_0_15px_rgba(16,185,129,0.2)]">
             <Wifi size={16} className="text-emerald-500" />
             <span className="text-xs font-mono text-emerald-400 tracking-widest uppercase">Server Online</span>
+          </div>
+        </div>
+
+        {/* Live Video Feed Widget */}
+        <div className="mb-8 w-full">
+          <div className="bg-black/80 border border-slate-800 rounded-xl overflow-hidden relative group">
+            <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-ocean-glow to-transparent opacity-50"></div>
+
+            {/* Header overlay */}
+            <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-start z-10 bg-gradient-to-b from-black/80 to-transparent">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 bg-red-500 rounded-full animate-pulse"></div>
+                <span className="text-red-500 font-mono text-xs font-bold tracking-widest">LIVE FEED // CAM-01 [BUG]</span>
+              </div>
+              <div className="font-mono text-xs text-ocean-glow/80">
+                TIEFE: -4102m | DRUCK: 420bar
+              </div>
+            </div>
+
+            {/* Video Content Simulation */}
+            <div className="relative w-full aspect-[21/9] md:aspect-[32/9] overflow-hidden bg-[#000510]">
+              {/* Deep Sea Simulation CSS */}
+              <div className="absolute inset-0 opacity-30 bg-[radial-gradient(circle_at_50%_50%,rgba(6,182,212,0.1),transparent_70%)]"></div>
+
+              {/* Particles */}
+              <div className="absolute inset-0 overflow-hidden">
+                 {[...Array(20)].map((_, i) => (
+                   <div
+                     key={i}
+                     className="absolute bg-white/10 rounded-full blur-[1px]"
+                     style={{
+                       width: Math.random() * 4 + 1 + 'px',
+                       height: Math.random() * 4 + 1 + 'px',
+                       left: Math.random() * 100 + '%',
+                       top: Math.random() * 100 + '%',
+                       animation: `float ${Math.random() * 10 + 5}s linear infinite`
+                     }}
+                   />
+                 ))}
+              </div>
+
+              {/* Light beams */}
+              <div className="absolute top-[-50%] left-[20%] w-[20%] h-[200%] bg-gradient-to-b from-ocean-glow/5 to-transparent rotate-12 blur-3xl animate-pulse-slow"></div>
+              <div className="absolute top-[-50%] left-[60%] w-[15%] h-[200%] bg-gradient-to-b from-bio-green/5 to-transparent -rotate-12 blur-3xl animate-pulse-slow delay-700"></div>
+
+              {/* Scanline */}
+              <div className="absolute inset-0 bg-[linear-gradient(transparent_50%,rgba(0,0,0,0.5)_50%)] bg-[length:100%_4px] pointer-events-none opacity-20"></div>
+              <div className="absolute w-full h-[2px] bg-ocean-glow/30 top-0 animate-[scan_4s_linear_infinite] shadow-[0_0_10px_rgba(6,182,212,0.5)]"></div>
+
+              {/* Central HUD Crosshair */}
+              <div className="absolute inset-0 flex items-center justify-center opacity-30 pointer-events-none">
+                 <div className="w-64 h-64 border border-ocean-glow/30 rounded-full flex items-center justify-center relative">
+                    <div className="w-1 h-4 bg-ocean-glow absolute top-0"></div>
+                    <div className="w-1 h-4 bg-ocean-glow absolute bottom-0"></div>
+                    <div className="w-4 h-1 bg-ocean-glow absolute left-0"></div>
+                    <div className="w-4 h-1 bg-ocean-glow absolute right-0"></div>
+                    <div className="w-2 h-2 bg-ocean-glow rounded-full"></div>
+                 </div>
+              </div>
+            </div>
+
+            {/* Bottom Info */}
+            <div className="absolute bottom-0 left-0 right-0 p-4 flex justify-between items-end z-10 bg-gradient-to-t from-black/90 to-transparent">
+               <div className="text-[10px] font-mono text-slate-500">
+                  <p>ISO: 12800</p>
+                  <p>BLENDE: F/1.4</p>
+                  <p>BELICHTUNG: 1/60</p>
+               </div>
+               <div className="flex gap-2">
+                 <button className="p-2 hover:bg-white/10 rounded text-ocean-glow transition-colors" title="Fullscreen">
+                    <Maximize2 size={16} />
+                 </button>
+               </div>
+            </div>
           </div>
         </div>
 
@@ -143,6 +217,13 @@ const Dashboard: React.FC = () => {
           </div>
         </div>
       </div>
+
+      <style>{`
+        @keyframes scan {
+          0% { top: 0; }
+          100% { top: 100%; }
+        }
+      `}</style>
     </div>
   );
 };

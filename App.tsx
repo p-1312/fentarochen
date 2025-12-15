@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import HeroSection from './components/HeroSection';
 import Dashboard from './components/Dashboard';
 import FileBrowser from './components/FileBrowser';
+import Gallery from './components/Gallery';
 import UserAccount from './components/UserAccount';
 import LegalInfo from './components/LegalInfo';
 import LoginScreen from './components/LoginScreen';
 import { ViewSection } from './types';
-import { Activity, HardDrive, User, Menu, X, Home } from 'lucide-react';
+import { Activity, HardDrive, User, Menu, X, Home, Eye } from 'lucide-react';
 
 // Custom Icon representing the Fentanyl Patch (Matrixpflaster)
 const FentanylPatchIcon = ({ size = 24, className = "" }: { size?: number | string, className?: string }) => (
@@ -54,6 +55,8 @@ const App: React.FC = () => {
         return <Dashboard />;
       case ViewSection.FILES:
         return <FileBrowser />;
+      case ViewSection.VISION:
+        return <Gallery />;
       case ViewSection.PROFILE:
         return <UserAccount />;
       case ViewSection.LEGAL:
@@ -100,6 +103,12 @@ const App: React.FC = () => {
                   className={`px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${currentView === ViewSection.DASHBOARD ? 'text-white bg-white/10' : 'text-slate-400 hover:text-white'}`}
                 >
                   <Activity size={16} /> DATEN
+                </button>
+                <button
+                  onClick={() => handleNavClick(ViewSection.VISION)}
+                  className={`px-3 py-2 rounded-md text-sm font-medium transition-colors flex items-center gap-2 ${currentView === ViewSection.VISION ? 'text-white bg-white/10' : 'text-slate-400 hover:text-white'}`}
+                >
+                  <Eye size={16} /> VISION
                 </button>
                 <button
                   onClick={() => handleNavClick(ViewSection.FILES)}
@@ -149,6 +158,14 @@ const App: React.FC = () => {
                 </div>
               </button>
               <button
+                onClick={() => handleNavClick(ViewSection.VISION)}
+                className={`w-full text-left block px-3 py-3 rounded-md text-base font-medium ${currentView === ViewSection.VISION ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}
+              >
+                 <div className="flex items-center gap-3">
+                  <Eye size={18} /> VISION
+                </div>
+              </button>
+              <button
                 onClick={() => handleNavClick(ViewSection.FILES)}
                 className={`w-full text-left block px-3 py-3 rounded-md text-base font-medium ${currentView === ViewSection.FILES ? 'bg-white/10 text-white' : 'text-slate-300 hover:bg-slate-800 hover:text-white'}`}
               >
@@ -177,7 +194,7 @@ const App: React.FC = () => {
       {/* Footer */}
       {currentView !== ViewSection.HOME && (
         <footer className="bg-black py-8 border-t border-slate-900 text-center text-slate-600 text-sm">
-          <p className="mb-2">© 2024 FentaRochen Cloud Systems (v0.7.7). Secure Personal Data Environment.</p>
+          <p className="mb-2">© 2024 FentaRochen Cloud Systems (v0.7.8). Secure Personal Data Environment.</p>
           <button 
             onClick={() => handleNavClick(ViewSection.LEGAL)}
             className="text-slate-700 hover:text-ocean-glow transition-colors underline decoration-dotted"

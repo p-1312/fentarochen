@@ -1,13 +1,15 @@
 import React, { useState, useRef } from 'react';
-import { Upload, File, Image as ImageIcon, Music, Video, Trash2, Download } from 'lucide-react';
+import { Upload, File, Image as ImageIcon, Music, Video, Trash2, Download, Eye, X, PlayCircle } from 'lucide-react';
 import { FileItem } from '../types';
 
 const FileBrowser: React.FC = () => {
   const [files, setFiles] = useState<FileItem[]>([
     { id: '1', name: 'Projekt_Titan.pdf', type: 'document', size: 2400000, url: '#', date: new Date('2024-03-10') },
-    { id: '2', name: 'Deep_Dive_Log.mp4', type: 'video', size: 154000000, url: '#', date: new Date('2024-03-12') },
-    { id: '3', name: 'Sonar_Scan_Alpha.png', type: 'image', size: 4500000, url: '#', date: new Date('2024-03-14') },
+    // Using a sample video for demonstration purposes since the original # link won't play
+    { id: '2', name: 'Deep_Dive_Log.mp4', type: 'video', size: 154000000, url: 'https://storage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4', date: new Date('2024-03-12') },
+    { id: '3', name: 'Sonar_Scan_Alpha.png', type: 'image', size: 4500000, url: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop', date: new Date('2024-03-14') },
   ]);
+  const [selectedFile, setSelectedFile] = useState<FileItem | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const getIcon = (type: string) => {
@@ -50,8 +52,14 @@ const FileBrowser: React.FC = () => {
     return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
   };
 
+  const openPreview = (file: FileItem) => {
+    if (file.type === 'image' || file.type === 'video') {
+      setSelectedFile(file);
+    }
+  };
+
   return (
-    <div className="min-h-screen bg-black text-white p-6 md:p-12 pt-24 flex flex-col items-center">
+    <div className="min-h-screen bg-black text-white p-6 md:p-12 pt-24 flex flex-col items-center relative">
       <div className="max-w-6xl w-full">
         <div className="flex justify-between items-center mb-8">
             <div>
@@ -98,12 +106,17 @@ const FileBrowser: React.FC = () => {
             <div className="divide-y divide-slate-800">
                 {files.map(file => (
                     <div key={file.id} className="grid grid-cols-12 gap-4 p-4 items-center hover:bg-slate-800/50 transition-colors group">
-                        <div className="col-span-6 flex items-center gap-4 overflow-hidden">
-                            <div className="p-2 bg-slate-950 rounded border border-slate-800">
+                        <div className="col-span-6 flex items-center gap-4 overflow-hidden cursor-pointer" onClick={() => openPreview(file)}>
+                            <div className="p-2 bg-slate-950 rounded border border-slate-800 relative">
                                 {getIcon(file.type)}
+                                {(file.type === 'video' || file.type === 'image') && (
+                                  <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity rounded">
+                                    {file.type === 'video' ? <PlayCircle size={12} className="text-white"/> : <Eye size={12} className="text-white"/>}
+                                  </div>
+                                )}
                             </div>
                             <div className="truncate">
-                                <div className="font-medium text-slate-200 truncate">{file.name}</div>
+                                <div className="font-medium text-slate-200 truncate group-hover:text-ocean-glow transition-colors">{file.name}</div>
                                 <div className="text-xs text-slate-500">{file.date.toLocaleDateString()}</div>
                             </div>
                         </div>
@@ -114,14 +127,24 @@ const FileBrowser: React.FC = () => {
                             {formatSize(file.size)}
                         </div>
                         <div className="col-span-2 flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                            {(file.type === 'image' || file.type === 'video') && (
+                              <button
+                                onClick={() => openPreview(file)}
+                                className="p-2 hover:bg-slate-700 rounded text-blue-400"
+                                title="Vorschau"
+                              >
+                                <Eye size={18} />
+                              </button>
+                            )}
                             {file.url !== '#' && (
-                                <a href={file.url} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-slate-700 rounded text-ocean-glow">
+                                <a href={file.url} target="_blank" rel="noopener noreferrer" className="p-2 hover:bg-slate-700 rounded text-ocean-glow" title="Download">
                                     <Download size={18} />
                                 </a>
                             )}
                             <button 
                                 onClick={() => setFiles(files.filter(f => f.id !== file.id))}
                                 className="p-2 hover:bg-red-900/30 rounded text-red-400"
+                                title="Löschen"
                             >
                                 <Trash2 size={18} />
                             </button>
@@ -137,6 +160,48 @@ const FileBrowser: React.FC = () => {
             </div>
         </div>
       </div>
+
+      {/* Preview Modal */}
+      {selectedFile && (
+        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 animate-in fade-in duration-200">
+          <div className="w-full max-w-5xl bg-slate-900 border border-slate-700 rounded-xl overflow-hidden shadow-2xl flex flex-col max-h-[90vh]">
+            <div className="p-4 border-b border-slate-800 flex justify-between items-center bg-slate-950">
+               <div className="flex items-center gap-3">
+                  {getIcon(selectedFile.type)}
+                  <h3 className="font-bold text-white truncate max-w-md">{selectedFile.name}</h3>
+               </div>
+               <button
+                 onClick={() => setSelectedFile(null)}
+                 className="p-2 hover:bg-slate-800 rounded-full text-slate-400 hover:text-white transition-colors"
+               >
+                 <X size={24} />
+               </button>
+            </div>
+
+            <div className="flex-1 bg-black flex items-center justify-center p-2 overflow-hidden relative group">
+               {selectedFile.type === 'video' ? (
+                 <video
+                   src={selectedFile.url}
+                   controls
+                   autoPlay
+                   className="max-w-full max-h-[70vh] rounded outline-none"
+                 />
+               ) : (
+                 <img
+                   src={selectedFile.url}
+                   alt={selectedFile.name}
+                   className="max-w-full max-h-[70vh] object-contain rounded"
+                 />
+               )}
+            </div>
+
+            <div className="p-4 bg-slate-950 border-t border-slate-800 flex justify-between items-center text-xs font-mono text-slate-500">
+               <div>TYPE: {selectedFile.type.toUpperCase()}</div>
+               <div>SIZE: {formatSize(selectedFile.size)}</div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

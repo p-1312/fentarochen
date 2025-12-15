@@ -25,6 +25,7 @@ export enum ViewSection {
   HOME = 'HOME',
   DASHBOARD = 'DASHBOARD', // Ehemals Specs (Daten)
   FILES = 'FILES',         // Ehemals Vision (Uploads)
+  VISION = 'VISION',       // NEU: Media Hub (Video + AI Gen)
   PROFILE = 'PROFILE',     // Ehemals Comms (Profil)
   LEGAL = 'LEGAL'
 }
