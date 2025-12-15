@@ -111,7 +111,7 @@ const Dashboard: React.FC = () => {
                       <Cell key={`cell-${index}`} fill={entry.color} />
                     ))}
                   </Pie>
-                  <Tooltip
+                  <Tooltip 
                     contentStyle={{ backgroundColor: '#0f172a', borderColor: '#1e293b', borderRadius: '8px' }}
                     itemStyle={{ color: '#fff' }}
                   />
@@ -130,7 +130,7 @@ const Dashboard: React.FC = () => {
                   <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={false} />
                   <XAxis dataKey="time" stroke="#64748b" />
                   <YAxis stroke="#64748b" />
-                  <Tooltip
+                  <Tooltip 
                     cursor={{fill: '#1e293b', opacity: 0.4}}
                     contentStyle={{ backgroundColor: '#0f172a', borderColor: '#1e293b', color: '#f1f5f9' }}
                   />

@@ -177,7 +177,7 @@ const App: React.FC = () => {
       {/* Footer */}
       {currentView !== ViewSection.HOME && (
         <footer className="bg-black py-8 border-t border-slate-900 text-center text-slate-600 text-sm">
-          <p className="mb-2">© 2024 FentaRochen Cloud Systems (v0.7.6). Secure Personal Data Environment.</p>
+          <p className="mb-2">© 2024 FentaRochen Cloud Systems (v0.7.7). Secure Personal Data Environment.</p>
           <button 
             onClick={() => handleNavClick(ViewSection.LEGAL)}
             className="text-slate-700 hover:text-ocean-glow transition-colors underline decoration-dotted"
